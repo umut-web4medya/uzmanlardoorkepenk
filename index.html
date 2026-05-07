@@ -71,7 +71,12 @@ video:not(.hero-video):not(.hero-video-bg) { max-width: 100%; }
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1001;
   overflow: hidden;
 }
 .promo-bar::before {
@@ -88,11 +93,17 @@ video:not(.hero-video):not(.hero-video-bg) { max-width: 100%; }
 /* HEADER */
 header {
   background: var(--navy);
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: 38px; /* promo bar yüksekliği */
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 1000;
   border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
 }
+/* Header + promo bar yüksekliği için body padding (desktop) */
+body { padding-top: 154px; }
 .header-inner {
   max-width: 1320px;
   margin: 0 auto;
@@ -160,6 +171,12 @@ nav {
   border-bottom: 1px solid var(--border);
   overflow-x: auto;
   scrollbar-width: none;
+  position: fixed;
+  top: 114px; /* promo (38) + header (76) */
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 999;
 }
 nav::-webkit-scrollbar { display: none; }
 .nav-inner {
@@ -252,8 +269,33 @@ nav::-webkit-scrollbar { display: none; }
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px; }
 .hero-tag { background: var(--red); color: #fff; font-family: var(--heading); font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 3px; }
 .hero-tag-line { width: 36px; height: 2px; background: var(--sky); border-radius: 2px; }
-.hero-title { font-family: var(--heading); font-size: clamp(48px, 6.5vw, 82px); font-weight: 900; color: var(--white); line-height: 1.05; text-transform: uppercase; letter-spacing: -1px; margin-bottom: 22px; animation: fadeInUp 0.7s 0.1s both; }
+.hero-title { font-family: var(--heading); font-size: clamp(38px, 5vw, 68px); font-weight: 900; color: var(--white); line-height: 1.05; text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 14px; animation: fadeInUp 0.7s 0.1s both; white-space: nowrap; }
 .hero-title .accent { color: var(--sky-2); }
+.hero-slogan {
+  display: inline-block;
+  font-family: var(--heading);
+  font-size: clamp(16px, 1.8vw, 22px);
+  font-weight: 700;
+  color: #FFD700;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  margin-bottom: 28px;
+  position: relative;
+  padding-left: 38px;
+  animation: fadeInUp 0.7s 0.25s both;
+  text-shadow: 0 2px 12px rgba(255, 215, 0, 0.25);
+}
+.hero-slogan::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 2px;
+  background: linear-gradient(90deg, #FFD700, transparent);
+  border-radius: 2px;
+}
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 .hero-desc { color: rgba(255,255,255,0.65); font-size: 16px; font-weight: 400; line-height: 1.75; margin-bottom: 34px; max-width: 500px; }
 .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
@@ -330,8 +372,33 @@ nav::-webkit-scrollbar { display: none; }
 /* ANATOMY SECTION */
 .anatomy-section { padding: 88px 28px; background: var(--off); }
 .anatomy-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
-.anatomy-img-wrap { background: #fff; border-radius: 14px; padding: 28px; border: 1px solid var(--border-light); box-shadow: 0 8px 32px rgba(8,14,24,0.06); }
-.anatomy-img-wrap img { width: 100%; height: auto; border-radius: 8px; display: block; }
+.anatomy-img-wrap { background: #fff; border-radius: 14px; padding: 28px; border: 1px solid var(--border-light); box-shadow: 0 8px 32px rgba(8,14,24,0.06); transition: all 0.28s; }
+.anatomy-img-wrap:hover { box-shadow: 0 16px 48px rgba(8,14,24,0.12); transform: translateY(-3px); }
+.anatomy-img-wrap img { width: 100%; height: auto; border-radius: 8px; display: block; transition: transform 0.4s; }
+.anatomy-img-wrap:hover img { transform: scale(1.02); }
+.anatomy-zoom-icon {
+  position: absolute;
+  bottom: 38px;
+  right: 38px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(8, 14, 24, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.3s;
+  pointer-events: none;
+  border: 2px solid rgba(255,255,255,0.2);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+.anatomy-img-wrap:hover .anatomy-zoom-icon {
+  opacity: 1;
+  transform: scale(1);
+}
 .anatomy-list { display: flex; flex-direction: column; gap: 14px; margin-top: 28px; }
 .anatomy-item { display: flex; gap: 16px; padding: 16px 18px; background: var(--white); border-radius: 10px; border-left: 3px solid var(--red); border: 1px solid var(--border-light); border-left: 3px solid var(--red); transition: all 0.25s; }
 .anatomy-item:nth-child(2) { border-left-color: var(--sky); }
@@ -761,6 +828,8 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
   nav { display: none; }
 }
 @media (max-width: 768px) {
+  body { padding-top: 96px; }
+  header { top: 35px; }
   .header-inner {
     height: auto;
     padding: 12px 14px;
@@ -776,10 +845,12 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
   .lang-btn .flag-circle { width: 26px; height: 26px; }
   .header-contacts { display: none; }
   .hamburger-btn { width: 40px; height: 40px; margin-left: 4px; }
-  .promo-bar { font-size: 10px; padding: 7px 10px; letter-spacing: 0.5px; }
-  .promo-star { margin: 0 5px; font-size: 10px; }
+  .promo-bar { font-size: 12px; padding: 9px 12px; letter-spacing: 1px; }
+  .promo-star { margin: 0 6px; font-size: 12px; }
   .hero-inner { padding: 60px 16px 100px; gap: 30px; }
-  .hero-title { font-size: clamp(36px, 9vw, 56px); }
+  .hero-title { font-size: clamp(24px, 7vw, 38px); letter-spacing: -0.3px; margin-bottom: 10px; }
+  .hero-slogan { font-size: clamp(11px, 3vw, 14px); letter-spacing: 1.5px; padding-left: 28px; margin-bottom: 22px; }
+  .hero-slogan::before { width: 20px; }
   .hero-desc { font-size: 14.5px; }
   .hero-ctas { gap: 8px; }
   .btn-primary, .btn-secondary { padding: 12px 20px; font-size: 13px; flex: 1; justify-content: center; }
@@ -801,17 +872,21 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
   .about-stat-num { font-size: 22px; }
   .about-stat-lbl { font-size: 9px; letter-spacing: 1px; }
   .anatomy-img-wrap { padding: 16px; }
+  .anatomy-zoom-icon { bottom: 26px; right: 26px; width: 36px; height: 36px; opacity: 1; transform: scale(1); }
   .contact-map iframe { height: 280px; }
   .sticky-cta { bottom: 16px; right: 16px; gap: 8px; }
   .sticky-btn { width: 48px; height: 48px; }
 }
 @media (max-width: 480px) {
+  body { padding-top: 92px; }
+  header { top: 33px; }
   .logo-main { font-size: 20px; }
   .logo-sub { display: none; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
-  .hero-title { font-size: clamp(32px, 10vw, 46px); }
-  .promo-bar { font-size: 9px; padding: 6px 8px; letter-spacing: 0.3px; }
-  .promo-star { margin: 0 3px; font-size: 9px; }
+  .hero-title { font-size: clamp(20px, 7.5vw, 30px); }
+  .hero-slogan { font-size: clamp(10px, 2.8vw, 12px); letter-spacing: 1px; }
+  .promo-bar { font-size: 11px; padding: 8px 8px; letter-spacing: 0.6px; }
+  .promo-star { margin: 0 4px; font-size: 11px; }
 }
 .inline-lang { display: none; }
 .inline-lang.lang-active { display: inline; }
@@ -997,9 +1072,13 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
         <span class="hero-tag-line"></span>
       </div>
       <h1 class="hero-title">
-        <span class="inline-lang lang-active" data-inline-lang="tr">Otomatik<br><span class="accent">Kepenk &amp;</span><br>Panjur</span>
-        <span class="inline-lang" data-inline-lang="en">Automatic<br><span class="accent">Shutter &amp;</span><br>Blinds</span>
+        <span class="inline-lang lang-active" data-inline-lang="tr">Otomatik <span class="accent">Kepenk &amp; Panjur</span></span>
+        <span class="inline-lang" data-inline-lang="en">Automatic <span class="accent">Shutter &amp; Blinds</span></span>
       </h1>
+      <div class="hero-slogan">
+        <span class="inline-lang lang-active" data-inline-lang="tr">Güvenliğin Modern Yüzü</span>
+        <span class="inline-lang" data-inline-lang="en">The Modern Face of Security</span>
+      </div>
       <p class="hero-desc">
         <span class="inline-lang lang-active" data-inline-lang="tr">Esenyurt İstanbul merkezli Uzmanlar Door, otomatik kepenk ve panjur sistemlerinde tamir, montaj, bakım ve yedek parça hizmetleri sunar. Aynı gün servis garantisiyle her marka kepenği tamir ediyoruz.</span>
         <span class="inline-lang" data-inline-lang="en">Based in Esenyurt Istanbul, Uzmanlar Door provides repair, installation, maintenance and spare parts services for automatic shutter and blind systems. We repair every brand of shutter with same-day service guarantee.</span>
@@ -1124,45 +1203,6 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
   </div>
 </section>
 
-<!-- HİZMETLER -->
-<section class="services-section" id="hizmetler">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-tag">
-        <span class="inline-lang lang-active" data-inline-lang="tr">Hizmetlerimiz</span>
-        <span class="inline-lang" data-inline-lang="en">Our Services</span>
-      </div>
-      <h2 class="section-title">
-        <span class="inline-lang lang-active" data-inline-lang="tr">Sunduğumuz <span>Hizmetler</span></span>
-        <span class="inline-lang" data-inline-lang="en">Services <span>We Offer</span></span>
-      </h2>
-      <span class="section-divider"></span>
-    </div>
-    <div class="services-grid stagger">
-      <div class="service-card reveal">
-        <div class="service-icon">🚨</div>
-        <div class="service-title"><span class="inline-lang lang-active" data-inline-lang="tr">Acil Kepenk Tamiri</span><span class="inline-lang" data-inline-lang="en">Emergency Shutter Repair</span></div>
-        <div class="service-text"><span class="inline-lang lang-active" data-inline-lang="tr">7/24 acil arıza servisi. İşyerinizin kepengi kapanmıyorsa veya açılmıyorsa hemen yanınızdayız.</span><span class="inline-lang" data-inline-lang="en">24/7 emergency fault service. If your shutter doesn't close or open, we are right by your side.</span></div>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon">🔧</div>
-        <div class="service-title"><span class="inline-lang lang-active" data-inline-lang="tr">Kepenk Bakımı</span><span class="inline-lang" data-inline-lang="en">Shutter Maintenance</span></div>
-        <div class="service-text"><span class="inline-lang lang-active" data-inline-lang="tr">Düzenli bakım ile kepenk ömrünü uzatın. Periyodik bakım anlaşmaları ve yağlama hizmetleri.</span><span class="inline-lang" data-inline-lang="en">Extend shutter life with regular maintenance. Periodic maintenance agreements and lubrication services.</span></div>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon">🛠️</div>
-        <div class="service-title"><span class="inline-lang lang-active" data-inline-lang="tr">Kepenk Montajı</span><span class="inline-lang" data-inline-lang="en">Shutter Installation</span></div>
-        <div class="service-text"><span class="inline-lang lang-active" data-inline-lang="tr">Yeni otomatik kepenk ve panjur sistemleri profesyonel ölçü ve kurulum hizmeti.</span><span class="inline-lang" data-inline-lang="en">Professional measurement and installation service for new automatic shutter and blind systems.</span></div>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon">📋</div>
-        <div class="service-title"><span class="inline-lang lang-active" data-inline-lang="tr">Ücretsiz Keşif</span><span class="inline-lang" data-inline-lang="en">Free Inspection</span></div>
-        <div class="service-text"><span class="inline-lang lang-active" data-inline-lang="tr">Yerinde ücretsiz keşif ve fiyat teklifi. İşyerinize gelip ölçü alıyor, en uygun çözümü sunuyoruz.</span><span class="inline-lang" data-inline-lang="en">Free on-site inspection and quote. We come to your business, take measurements and offer the best solution.</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- KEPENK PARÇALARI / ANATOMI -->
 <section class="anatomy-section" id="anatomi">
   <div class="container">
@@ -1178,8 +1218,11 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
       <span class="section-divider"></span>
     </div>
     <div class="anatomy-grid">
-      <div class="anatomy-img-wrap reveal-left">
+      <div class="anatomy-img-wrap reveal-left" onclick="openLightbox('https://www.uzmanlardoorkepenk.com/images/kepenk-parcalari.webp','Kepenk Parçaları')" style="cursor: zoom-in; position: relative;">
         <img src="https://www.uzmanlardoorkepenk.com/images/kepenk-parcalari.webp" alt="Kepenk Parçaları" loading="lazy">
+        <span class="anatomy-zoom-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </span>
       </div>
       <div class="reveal-right">
         <p style="font-size:15px;color:#4A5568;line-height:1.8;">
@@ -1216,6 +1259,45 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HİZMETLER -->
+<section class="services-section" id="hizmetler">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">
+        <span class="inline-lang lang-active" data-inline-lang="tr">Hizmetlerimiz</span>
+        <span class="inline-lang" data-inline-lang="en">Our Services</span>
+      </div>
+      <h2 class="section-title">
+        <span class="inline-lang lang-active" data-inline-lang="tr">Sunduğumuz <span>Hizmetler</span></span>
+        <span class="inline-lang" data-inline-lang="en">Services <span>We Offer</span></span>
+      </h2>
+      <span class="section-divider"></span>
+    </div>
+    <div class="services-grid stagger">
+      <div class="service-card reveal">
+        <div class="service-icon">🚨</div>
+        <div class="service-title"><span class="inline-lang lang-active" data-inline-lang="tr">Acil Kepenk Tamiri</span><span class="inline-lang" data-inline-lang="en">Emergency Shutter Repair</span></div>
+        <div class="service-text"><span class="inline-lang lang-active" data-inline-lang="tr">7/24 acil arıza servisi. İşyerinizin kepengi kapanmıyorsa veya açılmıyorsa hemen yanınızdayız.</span><span class="inline-lang" data-inline-lang="en">24/7 emergency fault service. If your shutter doesn't close or open, we are right by your side.</span></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🔧</div>
+        <div class="service-title"><span class="inline-lang lang-active" data-inline-lang="tr">Kepenk Bakımı</span><span class="inline-lang" data-inline-lang="en">Shutter Maintenance</span></div>
+        <div class="service-text"><span class="inline-lang lang-active" data-inline-lang="tr">Düzenli bakım ile kepenk ömrünü uzatın. Periyodik bakım anlaşmaları ve yağlama hizmetleri.</span><span class="inline-lang" data-inline-lang="en">Extend shutter life with regular maintenance. Periodic maintenance agreements and lubrication services.</span></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">🛠️</div>
+        <div class="service-title"><span class="inline-lang lang-active" data-inline-lang="tr">Kepenk Montajı</span><span class="inline-lang" data-inline-lang="en">Shutter Installation</span></div>
+        <div class="service-text"><span class="inline-lang lang-active" data-inline-lang="tr">Yeni otomatik kepenk ve panjur sistemleri profesyonel ölçü ve kurulum hizmeti.</span><span class="inline-lang" data-inline-lang="en">Professional measurement and installation service for new automatic shutter and blind systems.</span></div>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon">📋</div>
+        <div class="service-title"><span class="inline-lang lang-active" data-inline-lang="tr">Ücretsiz Keşif</span><span class="inline-lang" data-inline-lang="en">Free Inspection</span></div>
+        <div class="service-text"><span class="inline-lang lang-active" data-inline-lang="tr">Yerinde ücretsiz keşif ve fiyat teklifi. İşyerinize gelip ölçü alıyor, en uygun çözümü sunuyoruz.</span><span class="inline-lang" data-inline-lang="en">Free on-site inspection and quote. We come to your business, take measurements and offer the best solution.</span></div>
       </div>
     </div>
   </div>
