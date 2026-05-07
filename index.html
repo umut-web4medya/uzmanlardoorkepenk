@@ -766,13 +766,16 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
     padding: 12px 14px;
     gap: 10px;
     flex-wrap: nowrap;
+    justify-content: flex-start;
   }
-  .logo-wrap { flex-shrink: 1; min-width: 0; }
+  .logo-wrap { flex-shrink: 1; min-width: 0; flex: 1; }
   .logo-main { font-size: 22px; letter-spacing: 1.5px; }
   .logo-sub { font-size: 9px; letter-spacing: 1.8px; }
-  .lang-switcher { gap: 2px; flex-shrink: 0; }
+  .lang-switcher { gap: 2px; flex-shrink: 0; margin-left: auto; }
+  .lang-btn { padding: 2px; }
   .lang-btn .flag-circle { width: 26px; height: 26px; }
   .header-contacts { display: none; }
+  .hamburger-btn { width: 40px; height: 40px; margin-left: 4px; }
   .promo-bar { font-size: 10px; padding: 7px 10px; letter-spacing: 0.5px; }
   .promo-star { margin: 0 5px; font-size: 10px; }
   .hero-inner { padding: 60px 16px 100px; gap: 30px; }
