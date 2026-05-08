@@ -1188,16 +1188,18 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
   header { top: 35px; }
   .header-inner {
     height: auto;
-    padding: 12px 14px;
+    min-height: 70px;
+    padding: 10px 14px;
     gap: 10px;
     flex-wrap: nowrap;
     justify-content: flex-start;
+    align-items: center;
   }
-  .logo-wrap { flex-shrink: 1; min-width: 0; flex: 1; gap: 8px; align-items: center; }
-  .logo-img { height: 50px; flex-shrink: 0; }
-  .logo-text-wrap { display: flex; flex-direction: column; min-width: 0; line-height: 1.2; }
-  .logo-main { font-size: 15px; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1; margin-bottom: 2px; }
-  .logo-sub { font-size: 9px; letter-spacing: 0.3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1; display: block; }
+  .logo-wrap { flex-shrink: 1; min-width: 0; flex: 1; gap: 9px; align-items: center; }
+  .logo-img { height: 52px; flex-shrink: 0; }
+  .logo-text-wrap { display: flex !important; flex-direction: column; min-width: 0; line-height: 1.15; flex: 1; }
+  .logo-main { font-size: 15px !important; font-weight: 800; letter-spacing: 0.4px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.15 !important; margin-bottom: 3px !important; color: var(--navy) !important; display: block !important; }
+  .logo-sub { font-size: 9.5px !important; letter-spacing: 0.2px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1 !important; display: block !important; color: #6B7685 !important; font-weight: 600; }
   .lang-switcher { gap: 1px; flex-shrink: 0; margin-left: 6px; }
   .lang-btn { padding: 1px; }
   .lang-btn .flag-circle { width: 24px; height: 24px; }
@@ -1328,27 +1330,6 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
   </div>
   <div class="drawer-body">
     <div class="drawer-section-title">
-      <span class="inline-lang lang-active" data-inline-lang="tr">Sayfa</span>
-      <span class="inline-lang" data-inline-lang="en">Pages</span>
-    </div>
-    <a href="#hakkimizda" class="drawer-link" onclick="toggleDrawer()">
-      <span class="drawer-link-icon">🏢</span>
-      <span data-nav-tr="Hakkımızda" data-nav-en="About Us">Hakkımızda</span>
-    </a>
-    <a href="#hizmetler" class="drawer-link" onclick="toggleDrawer()">
-      <span class="drawer-link-icon">🛠️</span>
-      <span data-nav-tr="Hizmetlerimiz" data-nav-en="Services">Hizmetlerimiz</span>
-    </a>
-    <a href="#anatomi" class="drawer-link" onclick="toggleDrawer()">
-      <span class="drawer-link-icon">📐</span>
-      <span data-nav-tr="Giyotin Cam" data-nav-en="Sliding Glass">Giyotin Cam</span>
-    </a>
-    <a href="#tanitim" class="drawer-link" onclick="toggleDrawer()">
-      <span class="drawer-link-icon">▶️</span>
-      <span data-nav-tr="Tanıtım Video" data-nav-en="Promo Video">Tanıtım Video</span>
-    </a>
-
-    <div class="drawer-section-title">
       <span class="inline-lang lang-active" data-inline-lang="tr">Ürün Kategorileri</span>
       <span class="inline-lang" data-inline-lang="en">Product Categories</span>
     </div>
@@ -1383,6 +1364,27 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
     <a href="#sineklik-modelleri" class="drawer-link" onclick="toggleDrawer()">
       <span class="drawer-link-icon">🦟</span>
       <span data-nav-tr="Sineklik" data-nav-en="Mosquito Nets">Sineklik</span>
+    </a>
+
+    <div class="drawer-section-title">
+      <span class="inline-lang lang-active" data-inline-lang="tr">Sayfa</span>
+      <span class="inline-lang" data-inline-lang="en">Pages</span>
+    </div>
+    <a href="#hakkimizda" class="drawer-link" onclick="toggleDrawer()">
+      <span class="drawer-link-icon">🏢</span>
+      <span data-nav-tr="Hakkımızda" data-nav-en="About Us">Hakkımızda</span>
+    </a>
+    <a href="#hizmetler" class="drawer-link" onclick="toggleDrawer()">
+      <span class="drawer-link-icon">🛠️</span>
+      <span data-nav-tr="Hizmetlerimiz" data-nav-en="Services">Hizmetlerimiz</span>
+    </a>
+    <a href="#anatomi" class="drawer-link" onclick="toggleDrawer()">
+      <span class="drawer-link-icon">📐</span>
+      <span data-nav-tr="Giyotin Cam" data-nav-en="Sliding Glass">Giyotin Cam</span>
+    </a>
+    <a href="#tanitim" class="drawer-link" onclick="toggleDrawer()">
+      <span class="drawer-link-icon">▶️</span>
+      <span data-nav-tr="Tanıtım Video" data-nav-en="Promo Video">Tanıtım Video</span>
     </a>
 
     <div class="drawer-section-title">
