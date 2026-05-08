@@ -1195,9 +1195,9 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
   }
   .logo-wrap { flex-shrink: 1; min-width: 0; flex: 1; gap: 8px; align-items: center; }
   .logo-img { height: 50px; flex-shrink: 0; }
-  .logo-text-wrap { display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
-  .logo-main { font-size: 16px; letter-spacing: 0.8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .logo-sub { font-size: 8.5px; letter-spacing: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .logo-text-wrap { display: flex; flex-direction: column; min-width: 0; line-height: 1.2; }
+  .logo-main { font-size: 15px; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1; margin-bottom: 2px; }
+  .logo-sub { font-size: 9px; letter-spacing: 0.3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1; display: block; }
   .lang-switcher { gap: 1px; flex-shrink: 0; margin-left: 6px; }
   .lang-btn { padding: 1px; }
   .lang-btn .flag-circle { width: 24px; height: 24px; }
@@ -2031,6 +2031,12 @@ const categories = [
     id:'kumandalar',
     names:{tr:'Kumandalar',en:'Remote Controls'},
     products:[
+      {name:{tr:'Alıcı Kumanda Modülü 1',en:'Receiver Control Module 1'},img:'alici-kumanda1.webp',
+       desc:{tr:'Kepenk motoruna entegre edilen, uzaktan kumanda sinyallerini alıp komuta dönüştüren elektronik alıcı modül.',
+             en:'Electronic receiver module integrated into the shutter motor, receiving remote control signals and converting them to commands.'}},
+      {name:{tr:'Alıcı Kumanda Modülü 2',en:'Receiver Control Module 2'},img:'alici-kumanda2.webp',
+       desc:{tr:'Mevcut kepenk sistemlerine kolayca entegre edilebilen, kablolu bağlantılı alıcı kumanda ünitesi.',
+             en:'Receiver control unit with wired connection that can be easily integrated into existing shutter systems.'}},
       {name:{tr:'Tek Kanallı Uzaktan Kumanda',en:'Single Channel Remote Control'},img:'kumandalar1.webp',
        desc:{tr:'Tek kepenk kontrolü için kompakt ve kullanışlı uzaktan kumanda.',
              en:'Compact and useful remote control for single shutter control.'}},
@@ -2045,13 +2051,7 @@ const categories = [
              en:'Key-operated security control system that prevents unauthorized use.'}},
       {name:{tr:'Akıllı Telefon Uyumlu Kumanda',en:'Smartphone Compatible Control'},img:'kumandalar5.webp',
        desc:{tr:'Akıllı telefon uygulaması ile uzaktan kontrol imkanı sunan modern kumanda.',
-             en:'Modern control offering remote control via smartphone application.'}},
-      {name:{tr:'Alıcı Kumanda Modülü',en:'Receiver Control Module'},img:'alici-kumanda1.webp',
-       desc:{tr:'Kepenk motoruna entegre edilen, uzaktan kumanda sinyallerini alıp komuta dönüştüren elektronik alıcı modül.',
-             en:'Electronic receiver module integrated into the shutter motor, receiving remote control signals and converting them to commands.'}},
-      {name:{tr:'Kablolu Alıcı Kumanda',en:'Wired Receiver Control'},img:'alici-kumanda2.webp',
-       desc:{tr:'Mevcut kepenk sistemlerine kolayca entegre edilebilen, kablolu bağlantılı alıcı kumanda ünitesi.',
-             en:'Receiver control unit with wired connection that can be easily integrated into existing shutter systems.'}}
+             en:'Modern control offering remote control via smartphone application.'}}
     ]
   },
   {
