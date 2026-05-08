@@ -92,15 +92,15 @@ video:not(.hero-video):not(.hero-video-bg) { max-width: 100%; }
 
 /* HEADER */
 header {
-  background: var(--navy);
+  background: #ffffff;
   position: fixed;
   top: 38px; /* promo bar yüksekliği */
   left: 0;
   right: 0;
   width: 100%;
   z-index: 1000;
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: 0 2px 16px rgba(8,14,24,0.08);
 }
 /* Header + promo bar yüksekliği için body padding (nav gizli) */
 body { padding-top: 114px; }
@@ -116,33 +116,44 @@ body { padding-top: 114px; }
 }
 .logo-wrap {
   display: flex;
-  flex-direction: column;
-  line-height: 1.15;
+  align-items: center;
+  gap: 14px;
   text-decoration: none;
   cursor: pointer;
 }
-.logo-main { font-family: var(--heading); font-size: 30px; font-weight: 800; color: var(--white); letter-spacing: 2px; text-transform: uppercase; }
-.logo-accent { color: var(--sky-2); }
-.logo-sub { font-size: 10px; color: var(--sky); font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; opacity: 0.85; }
+.logo-img {
+  height: 56px;
+  width: auto;
+  display: block;
+}
+.logo-text-wrap {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+.logo-main { font-family: var(--heading); font-size: 26px; font-weight: 800; color: var(--navy); letter-spacing: 1.5px; text-transform: uppercase; }
+.logo-accent { color: var(--sky); }
+.logo-sub { font-size: 10px; color: #6B7685; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; }
 
 .header-contacts { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .contact-pill {
   display: flex;
   align-items: center;
   gap: 7px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid var(--border);
+  background: var(--off);
+  border: 1px solid var(--border-light);
   border-radius: 6px;
   padding: 7px 14px;
   text-decoration: none;
-  color: var(--white);
+  color: var(--navy);
   font-size: 13px;
   font-weight: 600;
   transition: all 0.2s;
   white-space: nowrap;
 }
-.contact-pill:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); }
-.contact-pill.wa { background: rgba(37,211,102,0.12); border-color: rgba(37,211,102,0.3); color: #4DE882; }
+.contact-pill:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
+.contact-pill.wa { background: rgba(37,211,102,0.12); border-color: rgba(37,211,102,0.3); color: #1EBE5B; }
+.contact-pill.wa:hover { background: #25D366; color: #fff; border-color: #25D366; }
 
 .lang-switcher { display: flex; gap: 4px; flex-wrap: wrap; }
 .lang-btn {
@@ -162,7 +173,7 @@ body { padding-top: 114px; }
   border: 2px solid transparent;
   transition: border-color 0.2s;
 }
-.lang-btn.active .flag-circle { border-color: #fff; box-shadow: 0 0 0 2px var(--sky); }
+.lang-btn.active .flag-circle { border-color: var(--navy); box-shadow: 0 0 0 2px var(--sky); }
 .lang-btn .flag-circle svg { width: 100%; height: 100%; display: block; }
 
 /* NAV */
@@ -878,23 +889,26 @@ nav::-webkit-scrollbar { display: none; }
   width: 44px;
   height: 44px;
   border-radius: 8px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid var(--border);
+  background: var(--off);
+  border: 1px solid var(--border-light);
   cursor: pointer;
   padding: 0;
   gap: 5px;
   transition: all 0.2s;
   flex-shrink: 0;
 }
-.hamburger-btn:hover { background: rgba(255,255,255,0.12); border-color: var(--sky); }
+.hamburger-btn:hover { background: var(--navy); border-color: var(--navy); }
+.hamburger-btn:hover span { background: #fff; }
 .hamburger-btn span {
   display: block;
   width: 20px;
   height: 2px;
-  background: #fff;
+  background: var(--navy);
   border-radius: 2px;
   transition: all 0.3s ease;
 }
+.hamburger-btn.open { background: var(--navy); border-color: var(--navy); }
+.hamburger-btn.open span { background: #fff; }
 .hamburger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .hamburger-btn.open span:nth-child(2) { opacity: 0; }
 .hamburger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -1175,9 +1189,11 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
     flex-wrap: nowrap;
     justify-content: flex-start;
   }
-  .logo-wrap { flex-shrink: 1; min-width: 0; flex: 1; }
-  .logo-main { font-size: 22px; letter-spacing: 1.5px; }
-  .logo-sub { font-size: 9px; letter-spacing: 1.8px; }
+  .logo-wrap { flex-shrink: 1; min-width: 0; flex: 1; gap: 10px; }
+  .logo-img { height: 44px; }
+  .logo-text-wrap { display: flex; }
+  .logo-main { font-size: 20px; letter-spacing: 1.2px; }
+  .logo-sub { font-size: 9px; letter-spacing: 1.5px; }
   .lang-switcher { gap: 2px; flex-shrink: 0; margin-left: auto; }
   .lang-btn { padding: 2px; }
   .lang-btn .flag-circle { width: 26px; height: 26px; }
@@ -1222,8 +1238,10 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
 @media (max-width: 480px) {
   body { padding-top: 92px; }
   header { top: 33px; }
-  .logo-main { font-size: 20px; }
+  .logo-main { font-size: 18px; }
   .logo-sub { display: none; }
+  .logo-text-wrap { display: none; }
+  .logo-img { height: 42px; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
   .hero-title { font-size: clamp(20px, 7.5vw, 30px); }
   .hero-slogan { font-size: clamp(10px, 2.8vw, 12px); letter-spacing: 1px; }
@@ -1267,8 +1285,11 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
 <header>
   <div class="header-inner">
     <a href="#" class="logo-wrap" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">
-      <span class="logo-main">Uzmanlar <span class="logo-accent">Door</span></span>
-      <span class="logo-sub">Otomatik Kepenk &amp; Panjur Sistemleri</span>
+      <img src="https://www.uzmanlardoorkepenk.com/images/uzmanlardoor-logo.webp" alt="Uzmanlar Door" class="logo-img" loading="eager">
+      <span class="logo-text-wrap">
+        <span class="logo-main">Uzmanlar <span class="logo-accent">Door</span></span>
+        <span class="logo-sub">Otomatik Kepenk &amp; Panjur</span>
+      </span>
     </a>
     <div class="lang-switcher">
       <button class="lang-btn active" onclick="setLang('tr')"><span class="flag-circle"><svg viewBox="0 0 30 30"><circle cx="15" cy="15" r="15" fill="#E30A17"/><circle cx="13" cy="15" r="5.5" fill="white"/><circle cx="15" cy="15" r="4.3" fill="#E30A17"/><polygon points="19,15 21.5,10.8 22.5,15.8 17.8,13.2 23,13.2" fill="white"/></svg></span></button>
@@ -1563,67 +1584,6 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
   </div>
 </section>
 
-<!-- KEPENK PARÇALARI / ANATOMI -->
-<section class="anatomy-section" id="anatomi">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="section-tag">
-        <span class="inline-lang lang-active" data-inline-lang="tr">Giyotin Cam Parçaları</span>
-        <span class="inline-lang" data-inline-lang="en">Vertical Sliding Glass Parts</span>
-      </div>
-      <h2 class="section-title">
-        <span class="inline-lang lang-active" data-inline-lang="tr">Giyotin Cam <span>Anatomisi</span></span>
-        <span class="inline-lang" data-inline-lang="en">Vertical Sliding Glass <span>Anatomy</span></span>
-      </h2>
-      <span class="section-divider"></span>
-    </div>
-    <div class="anatomy-grid">
-      <div class="anatomy-img-wrap reveal-left" onclick="openLightbox('https://www.uzmanlardoorkepenk.com/images/kepenk-parcalari.webp','Giyotin Cam Parçaları')" style="cursor: zoom-in; position: relative;">
-        <img src="https://www.uzmanlardoorkepenk.com/images/kepenk-parcalari.webp" alt="Giyotin Cam Parçaları" loading="lazy">
-        <span class="anatomy-zoom-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-        </span>
-      </div>
-      <div class="reveal-right">
-        <p style="font-size:15px;color:#4A5568;line-height:1.8;">
-          <span class="inline-lang lang-active" data-inline-lang="tr">Giyotin cam sistemi, dört ana parçanın birbiriyle uyumlu çalışmasıyla sessiz ve sorunsuz bir kullanım sağlar. Cafe, restoran ve balkon kapatma uygulamalarında en çok tercih edilen modern cam çözümüdür. Hangi parça arızalanırsa arızalansın, orijinal yedek parça stokumuzdan değişim yapıyoruz.</span>
-          <span class="inline-lang" data-inline-lang="en">A vertical sliding glass system provides quiet and trouble-free use through the harmonious operation of four main parts. It is the most preferred modern glass solution in cafes, restaurants and balcony enclosure applications. Whichever part fails, we replace it from our original spare parts stock.</span>
-        </p>
-        <div class="anatomy-list">
-          <div class="anatomy-item">
-            <div class="anatomy-num">01</div>
-            <div class="anatomy-item-content">
-              <div class="anatomy-item-title"><span class="inline-lang lang-active" data-inline-lang="tr">Kayış</span><span class="inline-lang" data-inline-lang="en">Lifting Belt</span></div>
-              <div class="anatomy-item-text"><span class="inline-lang lang-active" data-inline-lang="tr">Cam panellerin yukarı aşağı kaymasını sağlayan, makaralı taşıma mekanizmasına bağlı yüksek dayanımlı kaldırma kayışı.</span><span class="inline-lang" data-inline-lang="en">A high-strength lifting belt connected to the pulley carrier mechanism that allows the glass panels to slide up and down.</span></div>
-            </div>
-          </div>
-          <div class="anatomy-item">
-            <div class="anatomy-num">02</div>
-            <div class="anatomy-item-content">
-              <div class="anatomy-item-title"><span class="inline-lang lang-active" data-inline-lang="tr">Taşıyıcı Ray</span><span class="inline-lang" data-inline-lang="en">Carrier Rail</span></div>
-              <div class="anatomy-item-text"><span class="inline-lang lang-active" data-inline-lang="tr">Cam panellerin pürüzsüz şekilde inip kalkmasını sağlayan, yan kenarlardaki alüminyum kılavuz ray sistemi.</span><span class="inline-lang" data-inline-lang="en">The aluminum guide rail system on the side edges that allows the glass panels to glide up and down smoothly.</span></div>
-            </div>
-          </div>
-          <div class="anatomy-item">
-            <div class="anatomy-num">03</div>
-            <div class="anatomy-item-content">
-              <div class="anatomy-item-title"><span class="inline-lang lang-active" data-inline-lang="tr">Çerçeve Kasa</span><span class="inline-lang" data-inline-lang="en">Frame Case</span></div>
-              <div class="anatomy-item-text"><span class="inline-lang lang-active" data-inline-lang="tr">Sistemin tüm bileşenlerini içine alan, dış görünümü tamamlayan ve mekanizmayı koruyan ana taşıyıcı alüminyum kasa.</span><span class="inline-lang" data-inline-lang="en">The main aluminum carrier case that contains all components, completes the exterior appearance and protects the mechanism.</span></div>
-            </div>
-          </div>
-          <div class="anatomy-item">
-            <div class="anatomy-num">04</div>
-            <div class="anatomy-item-content">
-              <div class="anatomy-item-title"><span class="inline-lang lang-active" data-inline-lang="tr">Ön Kapak</span><span class="inline-lang" data-inline-lang="en">Front Cover</span></div>
-              <div class="anatomy-item-text"><span class="inline-lang lang-active" data-inline-lang="tr">Üst kasanın iç mekanizmasına servis erişimi sağlayan, sökülüp takılabilen estetik ön kapak parçası.</span><span class="inline-lang" data-inline-lang="en">The detachable aesthetic front cover that provides service access to the internal mechanism of the upper case.</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- TANITIM VIDEO SHOWCASE -->
 <section class="showcase-section" id="tanitim">
   <div class="container">
@@ -1715,6 +1675,67 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
 
 <!-- ÜRÜNLER KONTEYNERİ -->
 <div id="products-container"></div>
+
+<!-- KEPENK PARÇALARI / ANATOMI -->
+<section class="anatomy-section" id="anatomi">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">
+        <span class="inline-lang lang-active" data-inline-lang="tr">Giyotin Cam Parçaları</span>
+        <span class="inline-lang" data-inline-lang="en">Vertical Sliding Glass Parts</span>
+      </div>
+      <h2 class="section-title">
+        <span class="inline-lang lang-active" data-inline-lang="tr">Giyotin Cam <span>Anatomisi</span></span>
+        <span class="inline-lang" data-inline-lang="en">Vertical Sliding Glass <span>Anatomy</span></span>
+      </h2>
+      <span class="section-divider"></span>
+    </div>
+    <div class="anatomy-grid">
+      <div class="anatomy-img-wrap reveal-left" onclick="openLightbox('https://www.uzmanlardoorkepenk.com/images/kepenk-parcalari.webp','Giyotin Cam Parçaları')" style="cursor: zoom-in; position: relative;">
+        <img src="https://www.uzmanlardoorkepenk.com/images/kepenk-parcalari.webp" alt="Giyotin Cam Parçaları" loading="lazy">
+        <span class="anatomy-zoom-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </span>
+      </div>
+      <div class="reveal-right">
+        <p style="font-size:15px;color:#4A5568;line-height:1.8;">
+          <span class="inline-lang lang-active" data-inline-lang="tr">Giyotin cam sistemi, dört ana parçanın birbiriyle uyumlu çalışmasıyla sessiz ve sorunsuz bir kullanım sağlar. Cafe, restoran ve balkon kapatma uygulamalarında en çok tercih edilen modern cam çözümüdür. Hangi parça arızalanırsa arızalansın, orijinal yedek parça stokumuzdan değişim yapıyoruz.</span>
+          <span class="inline-lang" data-inline-lang="en">A vertical sliding glass system provides quiet and trouble-free use through the harmonious operation of four main parts. It is the most preferred modern glass solution in cafes, restaurants and balcony enclosure applications. Whichever part fails, we replace it from our original spare parts stock.</span>
+        </p>
+        <div class="anatomy-list">
+          <div class="anatomy-item">
+            <div class="anatomy-num">01</div>
+            <div class="anatomy-item-content">
+              <div class="anatomy-item-title"><span class="inline-lang lang-active" data-inline-lang="tr">Kayış</span><span class="inline-lang" data-inline-lang="en">Lifting Belt</span></div>
+              <div class="anatomy-item-text"><span class="inline-lang lang-active" data-inline-lang="tr">Cam panellerin yukarı aşağı kaymasını sağlayan, makaralı taşıma mekanizmasına bağlı yüksek dayanımlı kaldırma kayışı.</span><span class="inline-lang" data-inline-lang="en">A high-strength lifting belt connected to the pulley carrier mechanism that allows the glass panels to slide up and down.</span></div>
+            </div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">02</div>
+            <div class="anatomy-item-content">
+              <div class="anatomy-item-title"><span class="inline-lang lang-active" data-inline-lang="tr">Taşıyıcı Ray</span><span class="inline-lang" data-inline-lang="en">Carrier Rail</span></div>
+              <div class="anatomy-item-text"><span class="inline-lang lang-active" data-inline-lang="tr">Cam panellerin pürüzsüz şekilde inip kalkmasını sağlayan, yan kenarlardaki alüminyum kılavuz ray sistemi.</span><span class="inline-lang" data-inline-lang="en">The aluminum guide rail system on the side edges that allows the glass panels to glide up and down smoothly.</span></div>
+            </div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">03</div>
+            <div class="anatomy-item-content">
+              <div class="anatomy-item-title"><span class="inline-lang lang-active" data-inline-lang="tr">Çerçeve Kasa</span><span class="inline-lang" data-inline-lang="en">Frame Case</span></div>
+              <div class="anatomy-item-text"><span class="inline-lang lang-active" data-inline-lang="tr">Sistemin tüm bileşenlerini içine alan, dış görünümü tamamlayan ve mekanizmayı koruyan ana taşıyıcı alüminyum kasa.</span><span class="inline-lang" data-inline-lang="en">The main aluminum carrier case that contains all components, completes the exterior appearance and protects the mechanism.</span></div>
+            </div>
+          </div>
+          <div class="anatomy-item">
+            <div class="anatomy-num">04</div>
+            <div class="anatomy-item-content">
+              <div class="anatomy-item-title"><span class="inline-lang lang-active" data-inline-lang="tr">Ön Kapak</span><span class="inline-lang" data-inline-lang="en">Front Cover</span></div>
+              <div class="anatomy-item-text"><span class="inline-lang lang-active" data-inline-lang="tr">Üst kasanın iç mekanizmasına servis erişimi sağlayan, sökülüp takılabilen estetik ön kapak parçası.</span><span class="inline-lang" data-inline-lang="en">The detachable aesthetic front cover that provides service access to the internal mechanism of the upper case.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- YAPTIĞIMIZ İŞLER (REFERANS GALERİ) -->
 <section class="gallery-section" id="yaptigimiz-isler">
@@ -1949,17 +1970,20 @@ const categories = [
              en:'Modern shutter model that shows the interior thanks to its transparent polycarbonate structure.'}},
       {name:{tr:'Endüstriyel Otomatik Kepenk',en:'Industrial Automatic Shutter'},img:'otomatik-kepenk5.webp',
        desc:{tr:'Fabrika ve büyük tesisler için ağır hizmet tipi endüstriyel kepenk sistemi.',
-             en:'Heavy-duty industrial shutter system for factories and large facilities.'}}
+             en:'Heavy-duty industrial shutter system for factories and large facilities.'}},
+      {name:{tr:'Servis Kapalı Otomatik Kepenk',en:'Service Closed Automatic Shutter'},img:'servis-otomatik-kepenk.webp',
+       desc:{tr:'Kapalı tip servis kasalı otomatik kepenk modeli. Motor ve mekanizma tamamen kasanın içinde gizli, modern dış görünüm sağlar.',
+             en:'Closed-type service-cased automatic shutter model. The motor and mechanism are completely hidden inside the case, providing a modern exterior appearance.'}}
     ]
   },
   {
     id:'seffaf-otomatik-kepenk',
     names:{tr:'Şeffaf Otomatik Kepenk',en:'Transparent Automatic Shutter'},
     products:[
-      {name:{tr:'Şeffaf Otomatik Kepenk',en:'Transparent Automatic Shutter'},img:'seffaf-otomatik-kepenk1.webp',
+      {name:{tr:'Şeffaf Otomatik Kepenk',en:'Transparent Automatic Shutter'},img:'seffaf-otomatik-kepenk2.webp',
        desc:{tr:'Vitrinlerin görünür kalmasını sağlayan, polikarbon yapılı modern şeffaf otomatik kepenk modeli.',
              en:'Modern transparent automatic shutter with polycarbonate structure that keeps showcases visible.'}},
-      {name:{tr:'Şeffaf Mağaza Kepenk',en:'Transparent Store Shutter'},img:'seffaf-otomatik-kepenk2.webp',
+      {name:{tr:'Şeffaf Mağaza Kepenk',en:'Transparent Store Shutter'},img:'seffaf-otomatik-kepenk1.webp',
        desc:{tr:'Mağaza ve butikler için kapalıyken bile ürünleri sergilemeye olanak tanıyan şeffaf kepenk çözümü.',
              en:'Transparent shutter solution for stores and boutiques that allows products to be displayed even when closed.'}},
       {name:{tr:'Polikarbon Şeffaf Kepenk',en:'Polycarbonate Transparent Shutter'},img:'seffaf-otomatik-kepenk3.webp',
@@ -1992,21 +2016,9 @@ const categories = [
     id:'kepenk-motorlari',
     names:{tr:'Kepenk Motorları',en:'Shutter Motors'},
     products:[
-      {name:{tr:'Tübüler Kepenk Motoru',en:'Tubular Shutter Motor'},img:'kepenk-motorlari1.webp',
-       desc:{tr:'Sessiz çalışan, uzun ömürlü tübüler tip otomatik kepenk motoru.',
-             en:'Quiet-operating, long-life tubular type automatic shutter motor.'}},
-      {name:{tr:'Yan Tip Kepenk Motoru',en:'Side Type Shutter Motor'},img:'kepenk-motorlari2.webp',
-       desc:{tr:'Ağır kepenkler için yüksek torklu yan tip motor sistemi.',
-             en:'High-torque side type motor system for heavy shutters.'}},
-      {name:{tr:'Endüstriyel Kepenk Motoru',en:'Industrial Shutter Motor'},img:'kepenk-motorlari3.webp',
-       desc:{tr:'Büyük metrajlı endüstriyel kepenkler için profesyonel motor çözümü.',
-             en:'Professional motor solution for large industrial shutters.'}},
-      {name:{tr:'Acil Açma Sistemli Motor',en:'Emergency Release Motor'},img:'kepenk-motorlari4.webp',
-       desc:{tr:'Elektrik kesintisinde manuel açma özelliğine sahip güvenlikli motor.',
-             en:'Safety motor with manual opening feature in case of power failure.'}},
-      {name:{tr:'Yüksek Güçlü Kepenk Motoru',en:'High Power Shutter Motor'},img:'kepenk-motorlari5.webp',
-       desc:{tr:'Büyük ve ağır kepenklerin sorunsuz çalışması için yüksek güçlü motor.',
-             en:'High-power motor for the smooth operation of large and heavy shutters.'}}
+      {name:{tr:'Otomatik Kepenk Motoru',en:'Automatic Shutter Motor'},img:'motor.webp',
+       desc:{tr:'Sessiz çalışan, uzun ömürlü ve yüksek torklu otomatik kepenk motoru. Her boyutta kepenk için uygun, dayanıklı yapısıyla yıllarca sorunsuz hizmet verir.',
+             en:'Quiet-operating, long-life and high-torque automatic shutter motor. Suitable for shutters of all sizes, with a durable structure that provides years of trouble-free service.'}}
     ]
   },
   {
@@ -2027,13 +2039,22 @@ const categories = [
              en:'Key-operated security control system that prevents unauthorized use.'}},
       {name:{tr:'Akıllı Telefon Uyumlu Kumanda',en:'Smartphone Compatible Control'},img:'kumandalar5.webp',
        desc:{tr:'Akıllı telefon uygulaması ile uzaktan kontrol imkanı sunan modern kumanda.',
-             en:'Modern control offering remote control via smartphone application.'}}
+             en:'Modern control offering remote control via smartphone application.'}},
+      {name:{tr:'Alıcı Kumanda Modülü',en:'Receiver Control Module'},img:'alici-kumanda1.webp',
+       desc:{tr:'Kepenk motoruna entegre edilen, uzaktan kumanda sinyallerini alıp komuta dönüştüren elektronik alıcı modül.',
+             en:'Electronic receiver module integrated into the shutter motor, receiving remote control signals and converting them to commands.'}},
+      {name:{tr:'Kablolu Alıcı Kumanda',en:'Wired Receiver Control'},img:'alici-kumanda2.webp',
+       desc:{tr:'Mevcut kepenk sistemlerine kolayca entegre edilebilen, kablolu bağlantılı alıcı kumanda ünitesi.',
+             en:'Receiver control unit with wired connection that can be easily integrated into existing shutter systems.'}}
     ]
   },
   {
     id:'guc-kaynaklari',
     names:{tr:'Güç Kaynakları',en:'Power Supplies'},
     products:[
+      {name:{tr:'Profesyonel Kepenk Güç Kaynağı',en:'Professional Shutter Power Supply'},img:'guc-kaynagi1.webp',
+       desc:{tr:'Otomatik kepenk sistemleri için yüksek performanslı, dayanıklı yapıda profesyonel güç kaynağı modeli.',
+             en:'High-performance, durable professional power supply model for automatic shutter systems.'}},
       {name:{tr:'Standart Kepenk Güç Kaynağı',en:'Standard Shutter Power Supply'},img:'kepenk-guc-kaynagi1.webp',
        desc:{tr:'Otomatik kepenk sistemleri için temel güç kaynağı modeli.',
              en:'Basic power supply model for automatic shutter systems.'}},
@@ -2055,24 +2076,24 @@ const categories = [
     id:'kepenk-lameller',
     names:{tr:'Kepenk Lameller',en:'Shutter Slats'},
     products:[
-      {name:{tr:'Alüminyum Poliüretanlı Malzeme',en:'Polyurethane Aluminum Material'},img:'kepenk-lamel1.webp',
-       desc:{tr:'Alüminyum gövde içinde poliüretan dolgulu, ısı ve ses yalıtımı yüksek dayanıklı lamel malzemesi.',
-             en:'Polyurethane-filled aluminum body, high heat and sound insulation, durable slat material.'}},
-      {name:{tr:'Alüminyum Lamel',en:'Aluminum Slat'},img:'kepenk-lamel2.webp',
-       desc:{tr:'Hafif yapısı ile motora yük bindirmeyen alüminyum lamel modeli.',
-             en:'Aluminum slat model that does not load the motor with its lightweight structure.'}},
-      {name:{tr:'Polikarbon Şeffaf Lamel',en:'Polycarbonate Transparent Slat'},img:'kepenk-lamel3.webp',
-       desc:{tr:'Vitrin içini gösteren modern, yüksek dayanımlı polikarbon lamel.',
-             en:'Modern, high-strength polycarbonate slat showing the inside of the showcase.'}},
+      {name:{tr:'Alüminyum Lamel',en:'Aluminum Slat'},img:'aliminyum-lamel9.webp',
+       desc:{tr:'Hafif ve dayanıklı alüminyum gövdesiyle motora yük bindirmeyen, sessiz çalışan modern lamel modeli. Konut ve işyeri uygulamaları için idealdir.',
+             en:'Modern slat model with lightweight and durable aluminum body that does not load the motor and operates quietly. Ideal for residential and commercial applications.'}},
+      {name:{tr:'Galvaniz Çelik Palet',en:'Galvanized Steel Pallet'},img:'kalveniz-celik-palet.webp',
+       desc:{tr:'Korozyona dayanıklı galvaniz kaplama, ağır kullanımlar için yüksek mukavemetli çelik palet lamel.',
+             en:'Corrosion-resistant galvanized coating, high-strength steel pallet slat for heavy use.'}},
       {name:{tr:'Yalıtımlı Lamel',en:'Insulated Slat'},img:'kepenk-lamel4.webp',
        desc:{tr:'Ses ve ısı yalıtımı sağlayan poliüretan dolgulu lamel sistemi.',
              en:'Polyurethane-filled slat system providing sound and heat insulation.'}},
       {name:{tr:'Boyalı Renkli Lamel',en:'Painted Color Slat'},img:'kepenk-lamel5.webp',
        desc:{tr:'Cephenize uyacak renk seçenekleriyle elektrostatik boyalı lamel.',
              en:'Electrostatically painted slat with color options to match your facade.'}},
-      {name:{tr:'Galvaniz Çelik Palet',en:'Galvanized Steel Pallet'},img:'kalveniz-celik-palet.webp',
-       desc:{tr:'Korozyona dayanıklı galvaniz kaplama, ağır kullanımlar için yüksek mukavemetli çelik palet lamel.',
-             en:'Corrosion-resistant galvanized coating, high-strength steel pallet slat for heavy use.'}}
+      {name:{tr:'Çelik Poliüretanlı Malzeme',en:'Polyurethane Steel Material'},img:'kepenk-lamel2.webp',
+       desc:{tr:'Çelik gövde içinde poliüretan dolgulu, yüksek mukavemetli ve yalıtımlı lamel malzemesi.',
+             en:'Polyurethane-filled steel body, high-strength and insulated slat material.'}},
+      {name:{tr:'Alüminyum Poliüretanlı Malzeme',en:'Polyurethane Aluminum Material'},img:'kepenk-lamel3.webp',
+       desc:{tr:'Alüminyum gövde içinde poliüretan dolgulu, hafif yapısı ile motora yük bindirmeyen yalıtımlı lamel.',
+             en:'Polyurethane-filled aluminum body, lightweight insulated slat that does not load the motor.'}}
     ]
   },
   {
