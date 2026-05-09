@@ -490,10 +490,29 @@ nav::-webkit-scrollbar { display: none; }
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
+/* iOS Safari render bug fix: Hero içerik elementlerinin compositing layer'ı sabit kalsın
+   Scroll ile aşağı inip yukarı dönünce başlık/slogan/butonlar kaybolmasın */
+.hero-inner > *,
+.hero-inner > * > *,
+.hero-title,
+.hero-slogan,
+.hero-desc,
+.hero-eyebrow,
+.hero-ctas,
+.hero-stats,
+.hero-feature-cards,
+.feature-card {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+}
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px; }
 .hero-tag { background: var(--red); color: #fff; font-family: var(--heading); font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 3px; }
 .hero-tag-line { width: 36px; height: 2px; background: var(--sky); border-radius: 2px; }
-.hero-title { font-family: var(--heading); font-size: clamp(38px, 5vw, 68px); font-weight: 900; color: var(--white); line-height: 1.05; text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 14px; white-space: nowrap; opacity: 1; animation: fadeInUp 0.7s 0.1s; }
+.hero-title { font-family: var(--heading); font-size: clamp(38px, 5vw, 68px); font-weight: 900; color: var(--white); line-height: 1.05; text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 14px; white-space: nowrap; opacity: 1; }
 .hero-title .accent { color: var(--sky-2); }
 .hero-slogan {
   display: inline-block;
@@ -507,7 +526,6 @@ nav::-webkit-scrollbar { display: none; }
   position: relative;
   padding-left: 38px;
   opacity: 1;
-  animation: fadeInUp 0.7s 0.25s;
   text-shadow: 0 2px 12px rgba(255, 215, 0, 0.25);
 }
 .hero-slogan::before {
@@ -535,10 +553,10 @@ nav::-webkit-scrollbar { display: none; }
 .stat-num { display: block; font-family: var(--heading); font-size: 30px; font-weight: 800; color: var(--sky-2); line-height: 1; margin-bottom: 4px; }
 .stat-label { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
 .hero-feature-cards { display: flex; flex-direction: column; gap: 12px; }
-.feature-card { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-left: 3px solid var(--sky); border-radius: 8px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; backdrop-filter: blur(12px); opacity: 1; animation: fadeInRight 0.6s ease; }
-.feature-card:nth-child(1) { animation-delay: 0.5s; border-left-color: var(--sky); }
-.feature-card:nth-child(2) { animation-delay: 0.65s; border-left-color: var(--red); }
-.feature-card:nth-child(3) { animation-delay: 0.8s; border-left-color: #27AE60; }
+.feature-card { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-left: 3px solid var(--sky); border-radius: 8px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; backdrop-filter: blur(12px); opacity: 1; }
+.feature-card:nth-child(1) { border-left-color: var(--sky); }
+.feature-card:nth-child(2) { border-left-color: var(--red); }
+.feature-card:nth-child(3) { border-left-color: #27AE60; }
 @keyframes fadeInRight { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
 .feature-icon-wrap { width: 46px; height: 46px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
 .fc-blue { background: rgba(30,144,212,0.18); }
@@ -1543,11 +1561,12 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
   /* MOBILDE TÜM SCROLL REVEAL ANIMASYONLARINI KAPAT
      iOS Safari'de scroll geri dönüşünde elementler render katmanından çıkıp tekrar girince
      transform/opacity ortasında takılı kalabiliyor — bu yüzden mobilde tamamen direk gösteriyoruz */
-  .reveal, .reveal-left, .reveal-right,
-  .reveal.visible, .reveal-left.visible, .reveal-right.visible {
+  .reveal, .reveal-left, .reveal-right, .reveal-up, .reveal-scale, .reveal-blur,
+  .reveal.visible, .reveal-left.visible, .reveal-right.visible, .reveal-up.visible, .reveal-scale.visible, .reveal-blur.visible {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+    filter: none !important;
   }
   body { padding-top: 96px; }
   header { top: 35px; }
