@@ -105,6 +105,7 @@ header {
   z-index: 1000;
   border-bottom: 1px solid var(--border-light);
   box-shadow: 0 2px 16px rgba(8,14,24,0.08);
+  overflow: visible;
 }
 /* Header + promo bar yüksekliği için body padding (nav gizli) */
 body { padding-top: 114px; }
@@ -126,9 +127,12 @@ body { padding-top: 114px; }
   cursor: pointer;
 }
 .logo-img {
-  height: 72px;
+  height: 108px;
   width: auto;
   display: block;
+  margin: -16px -8px -16px 0;
+  position: relative;
+  z-index: 2;
 }
 .logo-text-wrap {
   display: flex;
@@ -1196,7 +1200,7 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
     align-items: center;
   }
   .logo-wrap { flex-shrink: 1; min-width: 0; flex: 1; gap: 9px; align-items: center; }
-  .logo-img { height: 52px; flex-shrink: 0; }
+  .logo-img { height: 78px; flex-shrink: 0; margin: -14px -4px -14px 0; position: relative; z-index: 2; }
   .logo-text-wrap { display: flex !important; flex-direction: column; min-width: 0; line-height: 1.15; flex: 1; }
   .logo-main { font-size: 15px !important; font-weight: 800; letter-spacing: 0.4px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.15 !important; margin-bottom: 3px !important; color: var(--navy) !important; display: block !important; }
   .logo-sub { font-size: 9.5px !important; letter-spacing: 0.2px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1 !important; display: block !important; color: #6B7685 !important; font-weight: 600; }
@@ -1247,7 +1251,7 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
   .logo-main { font-size: 14px; letter-spacing: 0.6px; }
   .logo-sub { display: none; }
   .logo-text-wrap { display: flex; }
-  .logo-img { height: 46px; }
+  .logo-img { height: 69px; margin: -12px -4px -12px 0; }
   .lang-btn .flag-circle { width: 22px; height: 22px; }
   .hamburger-btn { width: 36px; height: 36px; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
@@ -1377,6 +1381,10 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
     <a href="#hizmetler" class="drawer-link" onclick="toggleDrawer()">
       <span class="drawer-link-icon">🛠️</span>
       <span data-nav-tr="Hizmetlerimiz" data-nav-en="Services">Hizmetlerimiz</span>
+    </a>
+    <a href="#kepenk-anatomi" class="drawer-link" onclick="toggleDrawer()">
+      <span class="drawer-link-icon">🔧</span>
+      <span data-nav-tr="Kepenk Anatomisi" data-nav-en="Shutter Anatomy">Kepenk Anatomisi</span>
     </a>
     <a href="#anatomi" class="drawer-link" onclick="toggleDrawer()">
       <span class="drawer-link-icon">📐</span>
@@ -1508,6 +1516,101 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
     </div>
   </div>
   <div class="scroll-indicator"><div class="scroll-dot"><div class="scroll-dot-inner"></div></div><span class="scroll-label" style="color:rgba(255,255,255,0.4);font-size:11px;letter-spacing:2px;">SCROLL</span></div>
+</section>
+
+<!-- OTOMATİK KEPENK ANATOMİSİ -->
+<section class="anatomy-section" id="kepenk-anatomi" style="background: linear-gradient(180deg, #fff 0%, var(--off) 100%);">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">
+        <span class="inline-lang lang-active" data-inline-lang="tr">Sistemi Tanıyın</span>
+        <span class="inline-lang" data-inline-lang="en">Know the System</span>
+      </div>
+      <h2 class="section-title">
+        <span class="inline-lang lang-active" data-inline-lang="tr">Otomatik Kepenk <span>Anatomisi</span></span>
+        <span class="inline-lang" data-inline-lang="en">Automatic Shutter <span>Anatomy</span></span>
+      </h2>
+      <span class="section-divider"></span>
+    </div>
+    <div class="anatomy-grid">
+      <div class="anatomy-img-wrap reveal-left" onclick="openLightbox('https://www.uzmanlardoorkepenk.com/images/kepenk-anatomisi.webp','Otomatik Kepenk Anatomisi')" style="cursor: zoom-in; position: relative;">
+        <img src="https://www.uzmanlardoorkepenk.com/images/kepenk-anatomisi.webp" alt="Otomatik Kepenk Anatomisi - Tüm Parçalar" loading="lazy">
+        <span class="anatomy-zoom-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+        </span>
+      </div>
+      <div class="reveal-right">
+        <p style="font-size:16px;color:#4A5568;line-height:1.85;margin-bottom:20px;">
+          <span class="inline-lang lang-active" data-inline-lang="tr">Otomatik kepenk sisteminin tüm ana parçalarını gösteren teknik anatomik görsel. Görsel üzerinde <strong>motor, kutu/kasa, mil borusu, yan ray, kepenk lamelleri, alt fitil, fotosel ve kumanda sistemi</strong> gibi bileşenler detaylı şekilde işaretlenmiştir.</span>
+          <span class="inline-lang" data-inline-lang="en">Technical anatomical visual showing all main parts of the automatic shutter system. Components such as <strong>motor, box/case, axle pipe, side rail, shutter slats, bottom seal, photocell and remote control system</strong> are marked in detail on the image.</span>
+        </p>
+        <p style="font-size:15px;color:#4A5568;line-height:1.8;margin-bottom:24px;">
+          <span class="inline-lang lang-active" data-inline-lang="tr">Modern otomatik kepenk sistemlerinin çalışma mantığını ve yapı bileşenlerini kullanıcıya sade ve anlaşılır şekilde anlatan profesyonel teknik infografik tasarımı.</span>
+          <span class="inline-lang" data-inline-lang="en">Professional technical infographic design that explains the working logic and structural components of modern automatic shutter systems to the user in a simple and understandable way.</span>
+        </p>
+
+        <!-- Bileşen etiketleri -->
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 20px;">
+          <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid var(--red);border-radius:8px;">
+            <span style="font-size:18px;">⚙️</span>
+            <span style="font-family:var(--heading);font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">
+              <span class="inline-lang lang-active" data-inline-lang="tr">Motor</span>
+              <span class="inline-lang" data-inline-lang="en">Motor</span>
+            </span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid var(--sky);border-radius:8px;">
+            <span style="font-size:18px;">📦</span>
+            <span style="font-family:var(--heading);font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">
+              <span class="inline-lang lang-active" data-inline-lang="tr">Kutu / Kasa</span>
+              <span class="inline-lang" data-inline-lang="en">Box / Case</span>
+            </span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid #27AE60;border-radius:8px;">
+            <span style="font-size:18px;">🔩</span>
+            <span style="font-family:var(--heading);font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">
+              <span class="inline-lang lang-active" data-inline-lang="tr">Mil Borusu</span>
+              <span class="inline-lang" data-inline-lang="en">Axle Pipe</span>
+            </span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid #F39C12;border-radius:8px;">
+            <span style="font-size:18px;">📏</span>
+            <span style="font-family:var(--heading);font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">
+              <span class="inline-lang lang-active" data-inline-lang="tr">Yan Ray</span>
+              <span class="inline-lang" data-inline-lang="en">Side Rail</span>
+            </span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid #9B59B6;border-radius:8px;">
+            <span style="font-size:18px;">▦</span>
+            <span style="font-family:var(--heading);font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">
+              <span class="inline-lang lang-active" data-inline-lang="tr">Kepenk Lamelleri</span>
+              <span class="inline-lang" data-inline-lang="en">Shutter Slats</span>
+            </span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid #16A085;border-radius:8px;">
+            <span style="font-size:18px;">⎯</span>
+            <span style="font-family:var(--heading);font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">
+              <span class="inline-lang lang-active" data-inline-lang="tr">Alt Fitil</span>
+              <span class="inline-lang" data-inline-lang="en">Bottom Seal</span>
+            </span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid #E74C3C;border-radius:8px;">
+            <span style="font-size:18px;">👁️</span>
+            <span style="font-family:var(--heading);font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">
+              <span class="inline-lang lang-active" data-inline-lang="tr">Fotosel</span>
+              <span class="inline-lang" data-inline-lang="en">Photocell</span>
+            </span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid #3498DB;border-radius:8px;">
+            <span style="font-size:18px;">📡</span>
+            <span style="font-family:var(--heading);font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">
+              <span class="inline-lang lang-active" data-inline-lang="tr">Kumanda Sistemi</span>
+              <span class="inline-lang" data-inline-lang="en">Control System</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- HAKKIMIZDA -->
@@ -1970,12 +2073,12 @@ const categories = [
       {name:{tr:'Otomatik Mağaza Kepenk',en:'Automatic Store Shutter'},img:'magaza-kepenk.webp',
        desc:{tr:'Mağaza ve dükkanlar için tam otomatik kontrol sistemli kepenk çözümü.',
              en:'Fully automatic controlled shutter solution for stores and shops.'}},
-      {name:{tr:'Otomatik Garaj Kepenk',en:'Automatic Garage Shutter'},img:'otomatik-kepenk3.webp',
-       desc:{tr:'Garaj ve toplu kullanım alanlarına uygun, sessiz çalışan otomatik sistem.',
-             en:'Quiet-operating automatic system suitable for garage and shared spaces.'}},
-      {name:{tr:'Polikarbon Otomatik Kepenk',en:'Polycarbonate Automatic Shutter'},img:'otomatik-kepenk4.webp',
-       desc:{tr:'Şeffaf polikarbon yapısı sayesinde içeriyi gösteren modern kepenk modeli.',
-             en:'Modern shutter model that shows the interior thanks to its transparent polycarbonate structure.'}},
+      {name:{tr:'Alüminyum Otomatik Garaj Kepengi',en:'Aluminum Automatic Garage Shutter'},img:'otomatik-kepenk3.webp',
+       desc:{tr:'Garaj ve toplu kullanım alanları için hafif alüminyum yapılı, sessiz çalışan otomatik kepenk sistemi.',
+             en:'Lightweight aluminum-bodied, quiet-operating automatic shutter system for garages and shared spaces.'}},
+      {name:{tr:'Alüminyum Poliüretanlı Otomatik Kepenk',en:'Polyurethane Aluminum Automatic Shutter'},img:'otomatik-kepenk4.webp',
+       desc:{tr:'Alüminyum gövde içinde poliüretan dolgulu, ısı ve ses yalıtımı yüksek dayanıklı modern otomatik kepenk modeli.',
+             en:'Polyurethane-filled aluminum body, modern automatic shutter model with high heat and sound insulation.'}},
       {name:{tr:'Endüstriyel Otomatik Kepenk',en:'Industrial Automatic Shutter'},img:'otomatik-kepenk5.webp',
        desc:{tr:'Fabrika ve büyük tesisler için ağır hizmet tipi endüstriyel kepenk sistemi.',
              en:'Heavy-duty industrial shutter system for factories and large facilities.'}},
@@ -2030,12 +2133,12 @@ const categories = [
       {name:{tr:'Zincirli Kepenk Motoru',en:'Chain Drive Shutter Motor'},img:'zincirli-motor.webp',
        desc:{tr:'Ağır metrajlı ve yüksek tonajlı kepenkler için zincir tahrik sistemli güçlü motor. Endüstriyel ve büyük ticari alanlarda yüksek performans sağlar.',
              en:'Powerful chain-drive motor for heavy and high-tonnage shutters. Provides high performance in industrial and large commercial areas.'}},
-      {name:{tr:'Santral Motor',en:'Central Drive Motor'},img:'santral-motor.webp',
-       desc:{tr:'Merkezi tahrik mekanizması ile çalışan, geniş açıklıklı kepenkler için ideal santral motor sistemi. Yüksek dayanım ve sessiz çalışma.',
-             en:'Central drive motor system ideal for wide-span shutters with central drive mechanism. High durability and quiet operation.'}},
       {name:{tr:'Box Motor',en:'Box Motor'},img:'box-motor.webp',
        desc:{tr:'Kompakt kasa içinde gizlenen, modern dış görünüm sunan box tipi kepenk motoru. Estetik ve fonksiyonelliği bir arada sağlar.',
-             en:'Box-type shutter motor hidden inside a compact case, providing a modern exterior. Combines aesthetics and functionality.'}}
+             en:'Box-type shutter motor hidden inside a compact case, providing a modern exterior. Combines aesthetics and functionality.'}},
+      {name:{tr:'Santral Motor',en:'Central Drive Motor'},img:'santral-motor.webp',
+       desc:{tr:'Merkezi tahrik mekanizması ile çalışan, geniş açıklıklı kepenkler için ideal santral motor sistemi. Yüksek dayanım ve sessiz çalışma.',
+             en:'Central drive motor system ideal for wide-span shutters with central drive mechanism. High durability and quiet operation.'}}
     ]
   },
   {
