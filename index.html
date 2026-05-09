@@ -3,10 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<meta name="theme-color" content="#080E18">
+<meta name="keywords" content="otomatik kepenk, panjur sistemleri, kepenk tamiri, kepenk servisi, esenyurt kepenk, istanbul kepenk, uzmanlar door">
+<link rel="icon" type="image/webp" href="https://www.uzmanlardoorkepenk.com/images/uzmanlardoor-logo.webp">
 <title>Uzmanlar Door | Otomatik Kepenk ve Panjur Sistemleri | Esenyurt İstanbul</title>
 <meta name="description" content="Uzmanlar Door - Otomatik Kepenk ve Panjur Sistemleri. 7/24 Acil Kepenk Servisi, Tamir, Montaj ve Bakım. Esenyurt İstanbul.">
+
+<!-- ⚡ PERFORMANS OPTIMIZASYONU -->
+<!-- Preconnect: Bağlantı bekleme süresini sıfırlar -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.uzmanlardoorkepenk.com" crossorigin>
+
+<!-- DNS Prefetch: Diğer domainler için DNS'i önceden çöz -->
+<link rel="dns-prefetch" href="https://www.google.com">
+<link rel="dns-prefetch" href="https://wa.me">
+
+<!-- Preload: En kritik resim (logo) öncelikli yüklensin -->
+<link rel="preload" as="image" href="https://www.uzmanlardoorkepenk.com/images/uzmanlardoor-logo.webp" fetchpriority="high">
+
+<!-- Font yüklemeyi optimize et: display=swap zaten var, ek olarak font-display optimize -->
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -185,6 +201,14 @@ html { scroll-behavior: smooth; }
 .stagger > *:nth-child(4) { transition-delay: 0.24s; }
 .stagger > *:nth-child(5) { transition-delay: 0.32s; }
 .stagger > *:nth-child(6) { transition-delay: 0.4s; }
+
+/* ⚡ PERFORMANS: Sayfanın en altındaki ağır section'lar için render geciktirme */
+/* content-visibility: auto - tarayıcı bu elementleri sadece ekrana yaklaşınca render eder
+   Bu özellik Google Maps iframe ve galeri 8 resim render maliyetini düşürür */
+.contact-section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
 
 /* PROMO BAR */
 .promo-bar {
@@ -645,7 +669,7 @@ nav::-webkit-scrollbar { display: none; }
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: var(--red);
+  background: #25D366;
   color: #fff;
   text-decoration: none;
   font-family: var(--heading);
@@ -656,9 +680,9 @@ nav::-webkit-scrollbar { display: none; }
   padding: 14px 28px;
   border-radius: 6px;
   transition: all 0.22s;
-  box-shadow: 0 4px 20px rgba(212, 34, 44, 0.35);
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35);
 }
-.showcase-cta:hover { background: var(--red-dark); transform: translateY(-2px); }
+.showcase-cta:hover { background: #1EBE5B; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(37, 211, 102, 0.5); }
 
 /* Video Card */
 .showcase-video-wrap {
@@ -1352,43 +1376,128 @@ nav::-webkit-scrollbar { display: none; }
   .live-notif-text { font-size: 12px; }
 }
 
-/* STICKY CTA */
-.sticky-cta { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 999; }
+/* STICKY CTA - Modern Pulse + Bounce + Glow */
+.sticky-cta { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 14px; z-index: 999; }
 .sticky-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 54px;
-  height: 54px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
   text-decoration: none;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-  transition: all 0.22s;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   border: none;
   cursor: pointer;
   position: relative;
 }
-.sticky-btn:hover { transform: scale(1.1); }
-.sticky-wa { background: #25D366; }
-.sticky-call { background: var(--sky); }
-.sticky-top { background: var(--navy); border: 1px solid rgba(255,255,255,0.15); opacity: 0; pointer-events: none; transform: scale(0.8) translateY(10px); transition: all 0.35s; }
+/* Çift halka pulse efekti - dikkat çekiyor */
+.sticky-btn::before,
+.sticky-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.sticky-btn::before {
+  background: inherit;
+  z-index: -1;
+  animation: stickyPulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.sticky-btn::after {
+  background: inherit;
+  z-index: -1;
+  animation: stickyPulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite 1.2s;
+}
+@keyframes stickyPulse {
+  0%   { opacity: 0.6; transform: scale(1); }
+  90%  { opacity: 0; transform: scale(1.9); }
+  100% { opacity: 0; transform: scale(1.9); }
+}
+
+/* Gentle floating bounce - butonların kendisi de hareket ediyor */
+.sticky-wa,
+.sticky-call {
+  animation: stickyFloat 3s ease-in-out infinite;
+}
+.sticky-call { animation-delay: 0.4s; }
+@keyframes stickyFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+
+/* Glow efekti */
+.sticky-wa {
+  background: #25D366;
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.55), 0 0 0 0 rgba(37, 211, 102, 0.4);
+}
+.sticky-call {
+  background: var(--sky);
+  box-shadow: 0 6px 24px rgba(30, 144, 212, 0.55), 0 0 0 0 rgba(30, 144, 212, 0.4);
+}
+
+/* Hover - daha güçlü glow + büyüme */
+.sticky-btn:hover {
+  transform: scale(1.18) translateY(-2px) !important;
+  animation-play-state: paused;
+}
+.sticky-wa:hover {
+  box-shadow: 0 10px 32px rgba(37, 211, 102, 0.7), 0 0 24px rgba(37, 211, 102, 0.5);
+  background: #1EBE5B;
+}
+.sticky-call:hover {
+  box-shadow: 0 10px 32px rgba(30, 144, 212, 0.7), 0 0 24px rgba(30, 144, 212, 0.5);
+  background: var(--sky-2);
+}
+
+/* Top butonun pulse'ı kapalı (her zaman olmaması daha şık) */
+.sticky-top {
+  background: var(--navy);
+  border: 1px solid rgba(255,255,255,0.15);
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8) translateY(10px);
+  transition: all 0.35s;
+  animation: none;
+}
+.sticky-top::before, .sticky-top::after { display: none; }
 .sticky-top.visible { opacity: 1; pointer-events: auto; transform: scale(1) translateY(0); }
-.sticky-top:hover { background: var(--sky); }
+.sticky-top:hover { background: var(--sky); transform: scale(1.1) !important; }
+
 .sticky-tooltip {
   position: absolute;
-  right: 64px;
-  background: rgba(0,0,0,0.75);
+  right: 70px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.85);
   color: white;
-  padding: 5px 10px;
-  border-radius: 6px;
+  padding: 7px 14px;
+  border-radius: 8px;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: var(--heading);
+  text-transform: uppercase;
+  letter-spacing: 1px;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, transform 0.25s;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1);
 }
-.sticky-btn:hover .sticky-tooltip { opacity: 1; }
+.sticky-tooltip::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: rgba(0,0,0,0.85);
+}
+.sticky-btn:hover .sticky-tooltip { opacity: 1; transform: translateY(-50%) translateX(-4px); }
 
 /* FOOTER */
 footer { background: #050B13; padding: 36px 28px; text-align: center; color: rgba(255,255,255,0.45); font-size: 13px; border-top: 1px solid rgba(255,255,255,0.06); line-height: 1.7; }
@@ -1616,8 +1725,8 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
   .anatomy-img-wrap { padding: 16px; }
   .anatomy-zoom-icon { bottom: 26px; right: 26px; width: 36px; height: 36px; opacity: 1; transform: scale(1); }
   .contact-map iframe { height: 280px; }
-  .sticky-cta { bottom: 16px; right: 16px; gap: 8px; }
-  .sticky-btn { width: 48px; height: 48px; }
+  .sticky-cta { bottom: 16px; right: 16px; gap: 12px; }
+  .sticky-btn { width: 52px; height: 52px; }
 }
 @media (max-width: 480px) {
   body { padding-top: 92px; }
@@ -1682,7 +1791,7 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
 <header>
   <div class="header-inner">
     <a href="#" class="logo-wrap" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">
-      <img src="https://www.uzmanlardoorkepenk.com/images/uzmanlardoor-logo.webp" alt="Uzmanlar Door" class="logo-img" loading="eager">
+      <img src="https://www.uzmanlardoorkepenk.com/images/uzmanlardoor-logo.webp" alt="Uzmanlar Door" class="logo-img" loading="eager" fetchpriority="high" decoding="async" width="120" height="120">
       <span class="logo-text-wrap">
         <span class="logo-main">Uzmanlar <span class="logo-accent">Door</span></span>
         <span class="logo-sub">Otomatik Kepenk Sistemleri</span>
@@ -1930,7 +2039,7 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
     </div>
     <div class="anatomy-grid">
       <div class="anatomy-img-wrap reveal-left" onclick="openLightbox('https://www.uzmanlardoorkepenk.com/images/kepenk-anatomisi.webp','Otomatik Kepenk Anatomisi')" style="cursor: zoom-in; position: relative;">
-        <img src="https://www.uzmanlardoorkepenk.com/images/kepenk-anatomisi.webp" alt="Otomatik Kepenk Anatomisi - Tüm Parçalar" loading="lazy">
+        <img src="https://www.uzmanlardoorkepenk.com/images/kepenk-anatomisi.webp" alt="Otomatik Kepenk Anatomisi - Tüm Parçalar" loading="lazy" decoding="async">
         <span class="anatomy-zoom-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
         </span>
@@ -2133,8 +2242,8 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
       </div>
       <div class="showcase-video-wrap reveal-right">
         <span class="showcase-badge"><span class="showcase-badge-dot"></span> LIVE</span>
-        <video autoplay muted loop playsinline preload="auto" class="showcase-video">
-          <source src="https://www.uzmanlardoorkepenk.com/videos/uzmanlardoorkepenk.mp4" type="video/mp4">
+        <video autoplay muted loop playsinline preload="none" class="showcase-video" data-src="https://www.uzmanlardoorkepenk.com/videos/uzmanlardoorkepenk.mp4" poster="">
+          <source data-src="https://www.uzmanlardoorkepenk.com/videos/uzmanlardoorkepenk.mp4" type="video/mp4">
         </video>
       </div>
     </div>
@@ -2199,7 +2308,7 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
     </div>
     <div class="anatomy-grid">
       <div class="anatomy-img-wrap reveal-left" onclick="openLightbox('https://www.uzmanlardoorkepenk.com/images/kepenk-parcalari.webp','Giyotin Cam Parçaları')" style="cursor: zoom-in; position: relative;">
-        <img src="https://www.uzmanlardoorkepenk.com/images/kepenk-parcalari.webp" alt="Giyotin Cam Parçaları" loading="lazy">
+        <img src="https://www.uzmanlardoorkepenk.com/images/kepenk-parcalari.webp" alt="Giyotin Cam Parçaları" loading="lazy" decoding="async">
         <span class="anatomy-zoom-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
         </span>
@@ -2363,7 +2472,7 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
           <span class="inline-lang" data-inline-lang="en">Location</span>
         </div>
         <div class="contact-map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.1612180555167!2d28.6934503!3d41.02172869999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa1a511f26071%3A0xf4ef89f3efa1193d!2sUZMANLAR%20DOOR%20OTOMAT%C4%B0K%20KEPENK%20VE%20PANJUR%20S%C4%B0STEMLER%C4%B0!5e0!3m2!1str!2str!4v1778191216581!5m2!1str!2str" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.1612180555167!2d28.6934503!3d41.02172869999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa1a511f26071%3A0xf4ef89f3efa1193d!2sUZMANLAR%20DOOR%20OTOMAT%C4%B0K%20KEPENK%20VE%20PANJUR%20S%C4%B0STEMLER%C4%B0!5e0!3m2!1str!2str!4v1778191216581!5m2!1str!2str" width="600" height="380" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Uzmanlar Door Konum"></iframe>
         </div>
       </div>
     </div>
@@ -2413,7 +2522,7 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
 <div class="live-notification" id="liveNotif" role="dialog" aria-live="polite">
   <button class="live-notif-close" onclick="closeLiveNotif()" aria-label="Kapat">✕</button>
   <div class="live-notif-logo-wrap">
-    <img src="https://www.uzmanlardoorkepenk.com/images/uzmanlardoor-logo.webp" alt="Uzmanlar Door" class="live-notif-logo">
+    <img src="https://www.uzmanlardoorkepenk.com/images/uzmanlardoor-logo.webp" alt="Uzmanlar Door" class="live-notif-logo" loading="lazy" decoding="async" width="56" height="56">
     <span class="live-notif-status-dot"></span>
   </div>
   <div class="live-notif-content">
@@ -2643,7 +2752,7 @@ function makeProductCard(p, lang) {
   return `
     <div class="product-card reveal-scale">
       <div class="product-img-wrap" onclick="openLightbox('${fullImg.replace(/'/g,"\\'")}','${pname.replace(/'/g,"\\'")}')">
-        <img src="${fullImg}" alt="${pname}" loading="lazy" onerror="this.src='${PLACEHOLDER}'">
+        <img src="${fullImg}" alt="${pname}" loading="lazy" decoding="async" onerror="this.src='${PLACEHOLDER}'">
         <span class="product-badge">${t.badge}</span>
         <span class="zoom-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A202C" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></span>
       </div>
@@ -2829,7 +2938,7 @@ function renderGallery() {
   if (!grid) return;
   grid.innerHTML = galleryImages.map((src, i) => `
     <div class="gallery-thumb reveal-scale" onclick="openGalleryLightbox(${i})">
-      <img src="${src}" alt="Referans ${i+1}" loading="lazy" onerror="this.parentElement.style.opacity='0.4'">
+      <img src="${src}" alt="Referans ${i+1}" loading="lazy" decoding="async" onerror="this.parentElement.style.opacity='0.4'">
       <div class="gallery-overlay"><span class="gallery-overlay-icon">⊕</span></div>
       <span class="gallery-num">${i+1}</span>
     </div>
@@ -2966,7 +3075,42 @@ document.addEventListener('DOMContentLoaded', () => {
   renderGallery();
   initReveal();
   initLiveNotification();
+  initLazyVideo();
 });
+
+/* === LAZY VIDEO LOADER === */
+function initLazyVideo() {
+  const video = document.querySelector('.showcase-video');
+  if (!video) return;
+
+  // Eğer IntersectionObserver yoksa direkt yükle
+  if (!('IntersectionObserver' in window)) {
+    loadVideo(video);
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        loadVideo(video);
+        observer.unobserve(video);
+      }
+    });
+  }, { rootMargin: '200px 0px' }); // Görünmeden 200px önce yüklemeye başla
+  observer.observe(video);
+}
+
+function loadVideo(video) {
+  const source = video.querySelector('source[data-src]');
+  if (source) {
+    source.src = source.dataset.src;
+  }
+  if (video.dataset.src) {
+    video.src = video.dataset.src;
+  }
+  video.load();
+  video.play().catch(() => {}); // Autoplay başarısız olursa sessizce geç
+}
 
 /* === LIVE NOTIFICATION === */
 let liveNotifShown = false;
