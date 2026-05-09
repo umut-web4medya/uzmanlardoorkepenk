@@ -46,17 +46,139 @@ body {
 img, iframe { max-width: 100%; }
 video:not(.hero-video):not(.hero-video-bg) { max-width: 100%; }
 
-/* SCROLL REVEAL - default opacity:1, animasyon DOMContentLoaded sonrası class ile başlar */
-.reveal { opacity: 1; transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-left { opacity: 1; transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
-.reveal-left.visible { opacity: 1; transform: translateX(0); }
-.reveal-right { opacity: 1; transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
-.reveal-right.visible { opacity: 1; transform: translateX(0); }
-/* Sadece sayfa yüklendiğinde JS reveal-init class'ını ekler — initial state'i o uygular */
-.reveal-init .reveal:not(.visible) { opacity: 0; transform: translateY(36px); }
-.reveal-init .reveal-left:not(.visible) { opacity: 0; transform: translateX(-36px); }
-.reveal-init .reveal-right:not(.visible) { opacity: 0; transform: translateX(36px); }
+/* ===== MODERN SCROLL REVEAL SYSTEM ===== */
+/* GPU-accelerated, akışkan, multiple variants */
+html { scroll-behavior: smooth; }
+
+.reveal,
+.reveal-left,
+.reveal-right,
+.reveal-scale,
+.reveal-blur,
+.reveal-up {
+  opacity: 0;
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+.reveal,
+.reveal-up { transform: translate3d(0, 50px, 0); }
+.reveal-left { transform: translate3d(-60px, 0, 0); }
+.reveal-right { transform: translate3d(60px, 0, 0); }
+.reveal-scale { transform: scale3d(0.88, 0.88, 1); }
+.reveal-blur { transform: translate3d(0, 30px, 0); filter: blur(8px); }
+
+.reveal.visible,
+.reveal-up.visible,
+.reveal-left.visible,
+.reveal-right.visible,
+.reveal-scale.visible,
+.reveal-blur.visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  filter: blur(0);
+}
+
+/* Stagger: bir grubun çocukları sırayla gelir */
+.stagger > * {
+  transition-delay: calc(var(--stagger-i, 0) * 90ms);
+}
+
+/* Mobile: daha hızlı + daha az hareket (battery & smooth) */
+@media (max-width: 768px) {
+  .reveal, .reveal-up { transform: translate3d(0, 28px, 0); }
+  .reveal-left { transform: translate3d(-30px, 0, 0); }
+  .reveal-right { transform: translate3d(30px, 0, 0); }
+  .reveal-scale { transform: scale3d(0.94, 0.94, 1); }
+  .reveal-blur { transform: translate3d(0, 18px, 0); filter: blur(4px); }
+  .reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur, .reveal-up {
+    transition-duration: 0.65s, 0.7s, 0.65s;
+  }
+  .stagger > * { transition-delay: calc(var(--stagger-i, 0) * 60ms); }
+}
+
+/* Reduced motion için saygılı davran */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur, .reveal-up {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}
+
+/* Scroll indicator (hero altında) */
+.scroll-indicator {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.7);
+  font-family: var(--heading);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  z-index: 4;
+  text-decoration: none;
+  transition: opacity 0.3s, color 0.3s;
+}
+.scroll-indicator:hover { color: var(--sky-2); }
+.scroll-indicator-mouse {
+  width: 24px;
+  height: 38px;
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: 12px;
+  position: relative;
+  margin-bottom: 4px;
+}
+.scroll-indicator-mouse::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 7px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 3px;
+  animation: scrollDown 1.8s cubic-bezier(0.22,1,0.36,1) infinite;
+}
+@keyframes scrollDown {
+  0%   { opacity: 0; transform: translate(-50%, 0); }
+  30%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, 14px); }
+}
+.scroll-indicator-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2px;
+  animation: arrowBob 2s ease-in-out infinite;
+}
+.scroll-indicator-arrow svg {
+  width: 12px;
+  height: 12px;
+  margin-top: -4px;
+  stroke: currentColor;
+}
+@keyframes arrowBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(4px); }
+}
+@media (max-width: 768px) {
+  .scroll-indicator { bottom: 14px; font-size: 9px; letter-spacing: 1.5px; }
+  .scroll-indicator-mouse { width: 20px; height: 32px; }
+}
+
+/* ESKİ reveal init class'ı kaldırıldı, artık IntersectionObserver doğrudan çalışıyor */
 .stagger > *:nth-child(1) { transition-delay: 0s; }
 .stagger > *:nth-child(2) { transition-delay: 0.08s; }
 .stagger > *:nth-child(3) { transition-delay: 0.16s; }
@@ -424,10 +546,6 @@ nav::-webkit-scrollbar { display: none; }
 .fc-green { background: rgba(39,174,96,0.18); }
 .feature-card-title { font-family: var(--heading); font-size: 16px; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 0.5px; }
 .feature-card-text { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 3px; }
-.scroll-indicator { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.scroll-dot { width: 22px; height: 36px; border: 2px solid rgba(255,255,255,0.3); border-radius: 11px; display: flex; align-items: flex-start; justify-content: center; padding-top: 5px; }
-.scroll-dot-inner { width: 4px; height: 8px; background: var(--sky-2); border-radius: 2px; animation: scrollBounce 1.8s ease infinite; }
-@keyframes scrollBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
 
 /* SHOWCASE VIDEO SECTION */
 .showcase-section {
@@ -757,17 +875,6 @@ nav::-webkit-scrollbar { display: none; }
 .about-highlight-icon { font-size: 20px; flex-shrink: 0; }
 .about-highlight-text { font-family: var(--heading); font-size: 13px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.5px; }
 .about-highlight-sub { font-size: 11px; color: #6B7685; margin-top: 2px; }
-.about-visual { position: relative; }
-.about-visual-card { background: var(--navy); border-radius: 14px; padding: 36px; color: white; }
-.about-visual-logo { font-family: var(--heading); font-size: 26px; font-weight: 800; color: var(--white); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
-.about-visual-logo span { color: var(--sky-2); }
-.about-visual-sub { font-size: 10px; color: var(--sky); font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; opacity: 0.85; margin-bottom: 24px; }
-.about-stat-row { display: flex; gap: 16px; margin-bottom: 20px; }
-.about-stat-box { flex: 1; background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 8px; padding: 16px; text-align: center; }
-.about-stat-num { display: block; font-family: var(--heading); font-size: 26px; font-weight: 800; color: var(--sky-2); }
-.about-stat-lbl { font-size: 10px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.5px; }
-.about-address { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 8px; padding: 16px; font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.7; }
-.about-address strong { color: var(--white); font-family: var(--heading); font-size: 13px; letter-spacing: 0.5px; display: block; margin-bottom: 6px; }
 
 /* GALLERY */
 .gallery-section { padding: 88px 28px; background: var(--navy); }
@@ -860,19 +967,6 @@ nav::-webkit-scrollbar { display: none; }
 .gallery-lb-dots { position: fixed; bottom: 54px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; z-index: 10001; flex-wrap: wrap; justify-content: center; max-width: 80vw; }
 .gallery-lb-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; transition: background 0.2s, transform 0.2s; }
 .gallery-lb-dot.active { background: var(--sky-2); transform: scale(1.3); }
-
-/* WHY US */
-.why-section { background: var(--navy); padding: 88px 28px; }
-.why-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 52px; }
-.why-card { background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 32px 24px; border-radius: 10px; text-align: center; transition: all 0.25s; }
-.why-card:hover { background: rgba(255,255,255,0.07); transform: translateY(-3px); }
-.why-icon { width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; font-size: 24px; }
-.why-icon-1 { background: rgba(30,144,212,0.15); }
-.why-icon-2 { background: rgba(212,34,44,0.15); }
-.why-icon-3 { background: rgba(39,174,96,0.15); }
-.why-icon-4 { background: rgba(255,193,7,0.15); }
-.why-title { font-family: var(--heading); font-size: 18px; font-weight: 700; color: var(--white); text-transform: uppercase; margin-bottom: 10px; }
-.why-text { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.65; }
 
 /* CONTACT */
 .contact-section { padding: 88px 28px; background: var(--off); }
@@ -1064,6 +1158,391 @@ nav::-webkit-scrollbar { display: none; }
   font-weight: 600;
 }
 
+/* ÜRÜN KATEGORİLERİ MODAL */
+.cat-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(8, 14, 24, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: background 0.35s, opacity 0.35s;
+  padding: 20px;
+  backdrop-filter: blur(0px);
+}
+.cat-modal.open {
+  background: rgba(8, 14, 24, 0.75);
+  backdrop-filter: blur(8px);
+  opacity: 1;
+  pointer-events: auto;
+}
+.cat-modal-card {
+  background: #fff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 720px;
+  max-height: 88vh;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+  transform: translateY(40px) scale(0.95);
+  opacity: 0;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s;
+  display: flex;
+  flex-direction: column;
+}
+.cat-modal.open .cat-modal-card {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+.cat-modal-header {
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #fff 0%, var(--off) 100%);
+  flex-shrink: 0;
+}
+.cat-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cat-modal-title-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(30, 144, 212, 0.3);
+}
+.cat-modal-title-icon svg { width: 20px; height: 20px; stroke: #fff; }
+.cat-modal-title-text {
+  display: flex;
+  flex-direction: column;
+}
+.cat-modal-title-main {
+  font-family: var(--heading);
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+.cat-modal-title-sub {
+  font-size: 11px;
+  color: #6B7685;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 3px;
+}
+.cat-modal-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--off);
+  border: none;
+  color: var(--navy);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+.cat-modal-close:hover { background: var(--navy); color: #fff; transform: rotate(90deg); }
+.cat-modal-body {
+  padding: 22px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.cat-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.cat-modal-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 16px;
+  background: var(--off);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--navy);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+}
+.cat-modal-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--sky) 0%, var(--sky-2) 100%);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.3s;
+}
+.cat-modal-item:hover {
+  background: #fff;
+  border-color: var(--sky);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(30, 144, 212, 0.18);
+}
+.cat-modal-item:hover::before { transform: scaleY(1); }
+.cat-modal-item-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(30, 144, 212, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  transition: all 0.25s;
+}
+.cat-modal-item:hover .cat-modal-item-icon {
+  background: linear-gradient(135deg, var(--sky) 0%, var(--sky-2) 100%);
+  transform: scale(1.05);
+}
+.cat-modal-item-text {
+  flex: 1;
+  min-width: 0;
+}
+.cat-modal-item-name {
+  font-family: var(--heading);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  line-height: 1.25;
+}
+.cat-modal-item-count {
+  font-size: 10.5px;
+  color: #6B7685;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-top: 3px;
+}
+.cat-modal-item-arrow {
+  color: #B0B7C3;
+  flex-shrink: 0;
+  transition: all 0.25s;
+}
+.cat-modal-item-arrow svg { width: 16px; height: 16px; }
+.cat-modal-item:hover .cat-modal-item-arrow {
+  color: var(--sky);
+  transform: translateX(4px);
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .cat-modal { padding: 14px; }
+  .cat-modal-card { border-radius: 16px; max-height: 92vh; }
+  .cat-modal-header { padding: 18px 18px; }
+  .cat-modal-title-main { font-size: 15px; }
+  .cat-modal-title-sub { font-size: 10px; letter-spacing: 1px; }
+  .cat-modal-body { padding: 14px; }
+  .cat-modal-grid { grid-template-columns: 1fr; gap: 8px; }
+  .cat-modal-item { padding: 13px 14px; gap: 12px; }
+  .cat-modal-item-icon { width: 40px; height: 40px; font-size: 20px; }
+  .cat-modal-item-name { font-size: 12.5px; }
+  .cat-modal-item-count { font-size: 10px; letter-spacing: 1px; }
+}
+
+/* LIVE NOTIFICATION POPUP */
+.live-notification {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  width: 360px;
+  max-width: calc(100vw - 100px);
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow:
+    0 12px 40px rgba(8, 14, 24, 0.18),
+    0 4px 12px rgba(8, 14, 24, 0.08),
+    0 0 0 1px rgba(8, 14, 24, 0.04);
+  padding: 18px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  z-index: 998;
+  transform: translateX(-120%);
+  opacity: 0;
+  transition: transform 0.55s cubic-bezier(0.34, 1.3, 0.64, 1), opacity 0.4s;
+  border-left: 4px solid #25D366;
+}
+.live-notification.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+.live-notif-logo-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+.live-notif-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: var(--off);
+  padding: 4px;
+  object-fit: contain;
+  display: block;
+  border: 1px solid var(--border-light);
+}
+.live-notif-status-dot {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 16px;
+  height: 16px;
+  background: #25D366;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+  animation: liveDot 2s ease-in-out infinite;
+}
+@keyframes liveDot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+  50%      { box-shadow: 0 0 0 8px rgba(37, 211, 102, 0); }
+}
+.live-notif-content {
+  flex: 1;
+  min-width: 0;
+}
+.live-notif-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(37, 211, 102, 0.12);
+  color: #1EBE5B;
+  font-family: var(--heading);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 3px 9px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+}
+.live-notif-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: #25D366;
+  border-radius: 50%;
+  animation: livePulse2 1.4s ease-in-out infinite;
+}
+@keyframes livePulse2 {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(0.85); }
+}
+.live-notif-title {
+  font-family: var(--heading);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.3;
+  margin-bottom: 3px;
+}
+.live-notif-text {
+  font-size: 12.5px;
+  color: #6B7685;
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+.live-notif-actions {
+  display: flex;
+  gap: 6px;
+}
+.live-notif-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  text-decoration: none;
+  font-family: var(--heading);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+.live-notif-btn-call {
+  background: var(--sky);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(30, 144, 212, 0.3);
+}
+.live-notif-btn-call:hover { background: var(--sky-2); transform: translateY(-1px); }
+.live-notif-btn-wa {
+  background: #25D366;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
+}
+.live-notif-btn-wa:hover { background: #1EBE5B; transform: translateY(-1px); }
+.live-notif-btn svg { width: 12px; height: 12px; flex-shrink: 0; }
+.live-notif-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--off);
+  border: none;
+  color: #6B7685;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.2s;
+  line-height: 1;
+}
+.live-notif-close:hover { background: var(--navy); color: #fff; }
+
+/* Mobile: alt taraftan slide up */
+@media (max-width: 600px) {
+  .live-notification {
+    left: 12px;
+    right: 12px;
+    bottom: 90px;
+    width: auto;
+    max-width: none;
+    transform: translateY(150%);
+    padding: 14px;
+    gap: 12px;
+  }
+  .live-notification.show {
+    transform: translateY(0);
+  }
+  .live-notif-logo { width: 48px; height: 48px; }
+  .live-notif-title { font-size: 13.5px; }
+  .live-notif-text { font-size: 12px; }
+}
+
 /* STICKY CTA */
 .sticky-cta { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 999; }
 .sticky-btn {
@@ -1245,7 +1724,6 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
   .hero-inner { grid-template-columns: 1fr; gap: 40px; }
   .hero-feature-cards { flex-direction: row; flex-wrap: wrap; }
   .feature-card { flex: 1; min-width: 200px; }
-  .why-grid { grid-template-columns: repeat(2, 1fr); }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .products-grid { grid-template-columns: repeat(2, 1fr); }
   .about-grid { grid-template-columns: 1fr; }
@@ -1312,11 +1790,10 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
   .btn-primary, .btn-secondary, .btn-tertiary { padding: 12px 20px; font-size: 13px; width: 100%; justify-content: center; }
   .products-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; gap: 30px; }
-  .why-grid { grid-template-columns: 1fr; }
   .services-grid { grid-template-columns: 1fr; }
   .hero-stats { display: none; }
   .products-section { padding: 56px 16px; }
-  .about-section, .services-section, .anatomy-section, .gallery-section, .why-section, .contact-section, .showcase-section { padding: 56px 16px; }
+  .about-section, .services-section, .anatomy-section, .gallery-section, .contact-section, .showcase-section { padding: 56px 16px; }
   .container { padding: 0; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .about-highlights { grid-template-columns: 1fr; }
@@ -1326,11 +1803,6 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
   .about-stat-icon { font-size: 22px; margin-bottom: 6px; }
   .gallery-lb-prev { left: 6px; width: 42px; height: 42px; }
   .gallery-lb-next { right: 6px; width: 42px; height: 42px; }
-  .about-visual-card { padding: 24px; }
-  .about-stat-row { gap: 8px; }
-  .about-stat-box { padding: 12px 8px; }
-  .about-stat-num { font-size: 22px; }
-  .about-stat-lbl { font-size: 9px; letter-spacing: 1px; }
   .anatomy-img-wrap { padding: 16px; }
   .anatomy-zoom-icon { bottom: 26px; right: 26px; width: 36px; height: 36px; opacity: 1; transform: scale(1); }
   .contact-map iframe { height: 280px; }
@@ -1585,7 +2057,7 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
           <span class="inline-lang lang-active" data-inline-lang="tr">Acil Servis Çağır</span>
           <span class="inline-lang" data-inline-lang="en">Call Emergency Service</span>
         </a>
-        <a href="#otomatik-kepenk" class="btn-tertiary">
+        <a href="#" class="btn-tertiary" onclick="event.preventDefault(); openCatModal();">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
           <span class="inline-lang lang-active" data-inline-lang="tr">Ürünlerimizi İnceleyin</span>
           <span class="inline-lang" data-inline-lang="en">View Our Products</span>
@@ -1623,7 +2095,13 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
       </div>
     </div>
   </div>
-  <div class="scroll-indicator"><div class="scroll-dot"><div class="scroll-dot-inner"></div></div><span class="scroll-label" style="color:rgba(255,255,255,0.4);font-size:11px;letter-spacing:2px;">SCROLL</span></div>
+  <a href="#kepenk-anatomi" class="scroll-indicator" aria-label="Aşağı kaydır">
+    <div class="scroll-indicator-mouse"></div>
+    <span><span class="inline-lang lang-active" data-inline-lang="tr">Keşfet</span><span class="inline-lang" data-inline-lang="en">Discover</span></span>
+    <span class="scroll-indicator-arrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </span>
+  </a>
 </section>
 
 <!-- OTOMATİK KEPENK ANATOMİSİ -->
@@ -1745,52 +2223,52 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
         </p>
 
         <!-- İSTATİSTİK ŞERİDİ -->
-        <div class="about-stat-strip">
-          <div class="about-stat-cell">
+        <div class="about-stat-strip stagger">
+          <div class="about-stat-cell reveal-scale">
             <div class="about-stat-icon">📦</div>
             <div class="about-stat-big">1000+</div>
             <div class="about-stat-label"><span class="inline-lang lang-active" data-inline-lang="tr">Tamamlanan İş</span><span class="inline-lang" data-inline-lang="en">Completed Jobs</span></div>
           </div>
-          <div class="about-stat-cell">
+          <div class="about-stat-cell reveal-scale">
             <div class="about-stat-icon">⏳</div>
             <div class="about-stat-big">15+</div>
             <div class="about-stat-label"><span class="inline-lang lang-active" data-inline-lang="tr">Yıllık Tecrübe</span><span class="inline-lang" data-inline-lang="en">Years Experience</span></div>
           </div>
-          <div class="about-stat-cell">
+          <div class="about-stat-cell reveal-scale">
             <div class="about-stat-icon">🚨</div>
             <div class="about-stat-big">7/24</div>
             <div class="about-stat-label"><span class="inline-lang lang-active" data-inline-lang="tr">Acil Servis</span><span class="inline-lang" data-inline-lang="en">Emergency Service</span></div>
           </div>
-          <div class="about-stat-cell">
+          <div class="about-stat-cell reveal-scale">
             <div class="about-stat-icon">🛡️</div>
             <div class="about-stat-big">100%</div>
             <div class="about-stat-label"><span class="inline-lang lang-active" data-inline-lang="tr">Garantili İşçilik</span><span class="inline-lang" data-inline-lang="en">Guaranteed Work</span></div>
           </div>
         </div>
 
-        <div class="about-highlights about-highlights-4">
-          <div class="about-highlight">
+        <div class="about-highlights about-highlights-4 stagger">
+          <div class="about-highlight reveal-up">
             <div class="about-highlight-icon">🏪</div>
             <div>
               <div class="about-highlight-text"><span class="inline-lang lang-active" data-inline-lang="tr">İşyeri Kepenkleri</span><span class="inline-lang" data-inline-lang="en">Business Shutters</span></div>
               <div class="about-highlight-sub"><span class="inline-lang lang-active" data-inline-lang="tr">Mağaza ve dükkan çözümleri</span><span class="inline-lang" data-inline-lang="en">Store and shop solutions</span></div>
             </div>
           </div>
-          <div class="about-highlight">
+          <div class="about-highlight reveal-up">
             <div class="about-highlight-icon">📍</div>
             <div>
               <div class="about-highlight-text"><span class="inline-lang lang-active" data-inline-lang="tr">Esenyurt Merkezli</span><span class="inline-lang" data-inline-lang="en">Esenyurt Based</span></div>
               <div class="about-highlight-sub"><span class="inline-lang lang-active" data-inline-lang="tr">Tüm İstanbul'a hizmet</span><span class="inline-lang" data-inline-lang="en">Service all over Istanbul</span></div>
             </div>
           </div>
-          <div class="about-highlight">
+          <div class="about-highlight reveal-up">
             <div class="about-highlight-icon">⚡</div>
             <div>
               <div class="about-highlight-text"><span class="inline-lang lang-active" data-inline-lang="tr">Aynı Gün Servis</span><span class="inline-lang" data-inline-lang="en">Same Day Service</span></div>
               <div class="about-highlight-sub"><span class="inline-lang lang-active" data-inline-lang="tr">Hızlı arıza tespiti ve tamir</span><span class="inline-lang" data-inline-lang="en">Fast diagnosis and repair</span></div>
             </div>
           </div>
-          <div class="about-highlight">
+          <div class="about-highlight reveal-up">
             <div class="about-highlight-icon">🛡️</div>
             <div>
               <div class="about-highlight-text"><span class="inline-lang lang-active" data-inline-lang="tr">Garantili İşçilik</span><span class="inline-lang" data-inline-lang="en">Warranty Workmanship</span></div>
@@ -1868,22 +2346,22 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
       <span class="section-divider"></span>
     </div>
     <div class="services-grid stagger">
-      <div class="service-card reveal">
+      <div class="service-card reveal-up">
         <div class="service-icon">🚨</div>
         <div class="service-title"><span class="inline-lang lang-active" data-inline-lang="tr">Acil Kepenk Tamiri</span><span class="inline-lang" data-inline-lang="en">Emergency Shutter Repair</span></div>
         <div class="service-text"><span class="inline-lang lang-active" data-inline-lang="tr">7/24 acil arıza servisi. İşyerinizin kepengi kapanmıyorsa veya açılmıyorsa hemen yanınızdayız.</span><span class="inline-lang" data-inline-lang="en">24/7 emergency fault service. If your shutter doesn't close or open, we are right by your side.</span></div>
       </div>
-      <div class="service-card reveal">
+      <div class="service-card reveal-up">
         <div class="service-icon">🔧</div>
         <div class="service-title"><span class="inline-lang lang-active" data-inline-lang="tr">Kepenk Bakımı</span><span class="inline-lang" data-inline-lang="en">Shutter Maintenance</span></div>
         <div class="service-text"><span class="inline-lang lang-active" data-inline-lang="tr">Düzenli bakım ile kepenk ömrünü uzatın. Periyodik bakım anlaşmaları ve yağlama hizmetleri.</span><span class="inline-lang" data-inline-lang="en">Extend shutter life with regular maintenance. Periodic maintenance agreements and lubrication services.</span></div>
       </div>
-      <div class="service-card reveal">
+      <div class="service-card reveal-up">
         <div class="service-icon">🛠️</div>
         <div class="service-title"><span class="inline-lang lang-active" data-inline-lang="tr">Kepenk Montajı</span><span class="inline-lang" data-inline-lang="en">Shutter Installation</span></div>
         <div class="service-text"><span class="inline-lang lang-active" data-inline-lang="tr">Yeni otomatik kepenk ve panjur sistemleri profesyonel ölçü ve kurulum hizmeti.</span><span class="inline-lang" data-inline-lang="en">Professional measurement and installation service for new automatic shutter and blind systems.</span></div>
       </div>
-      <div class="service-card reveal">
+      <div class="service-card reveal-up">
         <div class="service-icon">📋</div>
         <div class="service-title"><span class="inline-lang lang-active" data-inline-lang="tr">Ücretsiz Keşif</span><span class="inline-lang" data-inline-lang="en">Free Inspection</span></div>
         <div class="service-text"><span class="inline-lang lang-active" data-inline-lang="tr">Yerinde ücretsiz keşif ve fiyat teklifi. İşyerinize gelip ölçü alıyor, en uygun çözümü sunuyoruz.</span><span class="inline-lang" data-inline-lang="en">Free on-site inspection and quote. We come to your business, take measurements and offer the best solution.</span></div>
@@ -1974,7 +2452,7 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
         <span class="inline-lang" data-inline-lang="en">Examples of completed shutter installation and repair projects. Each reference is an indicator of our customer satisfaction and quality workmanship.</span>
       </p>
     </div>
-    <div class="gallery-grid" id="galleryGrid"></div>
+    <div class="gallery-grid stagger" id="galleryGrid"></div>
   </div>
 </section>
 
@@ -2119,6 +2597,133 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
     <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
     <span class="sticky-tooltip"><span class="inline-lang lang-active" data-inline-lang="tr">Ara</span><span class="inline-lang" data-inline-lang="en">Call</span></span>
   </a>
+</div>
+
+<!-- ÜRÜN KATEGORİLERİ MODAL -->
+<div class="cat-modal" id="catModal" onclick="closeCatModal(event)">
+  <div class="cat-modal-card" onclick="event.stopPropagation()">
+    <div class="cat-modal-header">
+      <div class="cat-modal-title">
+        <div class="cat-modal-title-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <div class="cat-modal-title-text">
+          <span class="cat-modal-title-main">
+            <span class="inline-lang lang-active" data-inline-lang="tr">Ürün Kategorileri</span>
+            <span class="inline-lang" data-inline-lang="en">Product Categories</span>
+          </span>
+          <span class="cat-modal-title-sub">
+            <span class="inline-lang lang-active" data-inline-lang="tr">İncelemek istediğiniz kategoriyi seçin</span>
+            <span class="inline-lang" data-inline-lang="en">Select a category to explore</span>
+          </span>
+        </div>
+      </div>
+      <button class="cat-modal-close" onclick="closeCatModal()" aria-label="Kapat">✕</button>
+    </div>
+    <div class="cat-modal-body">
+      <div class="cat-modal-grid">
+        <a href="#otomatik-kepenk" class="cat-modal-item" onclick="closeCatModal()">
+          <div class="cat-modal-item-icon">🚪</div>
+          <div class="cat-modal-item-text">
+            <div class="cat-modal-item-name"><span class="inline-lang lang-active" data-inline-lang="tr">Otomatik Kepenk</span><span class="inline-lang" data-inline-lang="en">Automatic Shutters</span></div>
+            <div class="cat-modal-item-count"><span class="inline-lang lang-active" data-inline-lang="tr">6 Ürün</span><span class="inline-lang" data-inline-lang="en">6 Products</span></div>
+          </div>
+          <span class="cat-modal-item-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+        <a href="#seffaf-otomatik-kepenk" class="cat-modal-item" onclick="closeCatModal()">
+          <div class="cat-modal-item-icon">🪟</div>
+          <div class="cat-modal-item-text">
+            <div class="cat-modal-item-name"><span class="inline-lang lang-active" data-inline-lang="tr">Şeffaf Otomatik Kepenk</span><span class="inline-lang" data-inline-lang="en">Transparent Shutter</span></div>
+            <div class="cat-modal-item-count"><span class="inline-lang lang-active" data-inline-lang="tr">3 Ürün</span><span class="inline-lang" data-inline-lang="en">3 Products</span></div>
+          </div>
+          <span class="cat-modal-item-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+        <a href="#otomatik-panjur" class="cat-modal-item" onclick="closeCatModal()">
+          <div class="cat-modal-item-icon">🏠</div>
+          <div class="cat-modal-item-text">
+            <div class="cat-modal-item-name"><span class="inline-lang lang-active" data-inline-lang="tr">Otomatik Panjur</span><span class="inline-lang" data-inline-lang="en">Automatic Blinds</span></div>
+            <div class="cat-modal-item-count"><span class="inline-lang lang-active" data-inline-lang="tr">5 Ürün</span><span class="inline-lang" data-inline-lang="en">5 Products</span></div>
+          </div>
+          <span class="cat-modal-item-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+        <a href="#kepenk-motorlari" class="cat-modal-item" onclick="closeCatModal()">
+          <div class="cat-modal-item-icon">⚙️</div>
+          <div class="cat-modal-item-text">
+            <div class="cat-modal-item-name"><span class="inline-lang lang-active" data-inline-lang="tr">Kepenk Motorları</span><span class="inline-lang" data-inline-lang="en">Shutter Motors</span></div>
+            <div class="cat-modal-item-count"><span class="inline-lang lang-active" data-inline-lang="tr">4 Ürün</span><span class="inline-lang" data-inline-lang="en">4 Products</span></div>
+          </div>
+          <span class="cat-modal-item-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+        <a href="#kumandalar" class="cat-modal-item" onclick="closeCatModal()">
+          <div class="cat-modal-item-icon">📡</div>
+          <div class="cat-modal-item-text">
+            <div class="cat-modal-item-name"><span class="inline-lang lang-active" data-inline-lang="tr">Kumandalar</span><span class="inline-lang" data-inline-lang="en">Remote Controls</span></div>
+            <div class="cat-modal-item-count"><span class="inline-lang lang-active" data-inline-lang="tr">8 Ürün</span><span class="inline-lang" data-inline-lang="en">8 Products</span></div>
+          </div>
+          <span class="cat-modal-item-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+        <a href="#guc-kaynaklari" class="cat-modal-item" onclick="closeCatModal()">
+          <div class="cat-modal-item-icon">🔋</div>
+          <div class="cat-modal-item-text">
+            <div class="cat-modal-item-name"><span class="inline-lang lang-active" data-inline-lang="tr">Güç Kaynakları</span><span class="inline-lang" data-inline-lang="en">Power Supplies</span></div>
+            <div class="cat-modal-item-count"><span class="inline-lang lang-active" data-inline-lang="tr">5 Ürün</span><span class="inline-lang" data-inline-lang="en">5 Products</span></div>
+          </div>
+          <span class="cat-modal-item-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+        <a href="#kepenk-lameller" class="cat-modal-item" onclick="closeCatModal()">
+          <div class="cat-modal-item-icon">▦</div>
+          <div class="cat-modal-item-text">
+            <div class="cat-modal-item-name"><span class="inline-lang lang-active" data-inline-lang="tr">Kepenk Lameller</span><span class="inline-lang" data-inline-lang="en">Shutter Slats</span></div>
+            <div class="cat-modal-item-count"><span class="inline-lang lang-active" data-inline-lang="tr">6 Ürün</span><span class="inline-lang" data-inline-lang="en">6 Products</span></div>
+          </div>
+          <span class="cat-modal-item-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+        <a href="#sineklik-modelleri" class="cat-modal-item" onclick="closeCatModal()">
+          <div class="cat-modal-item-icon">🦟</div>
+          <div class="cat-modal-item-text">
+            <div class="cat-modal-item-name"><span class="inline-lang lang-active" data-inline-lang="tr">Sineklik</span><span class="inline-lang" data-inline-lang="en">Mosquito Nets</span></div>
+            <div class="cat-modal-item-count"><span class="inline-lang lang-active" data-inline-lang="tr">5 Ürün</span><span class="inline-lang" data-inline-lang="en">5 Products</span></div>
+          </div>
+          <span class="cat-modal-item-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIVE NOTIFICATION -->
+<div class="live-notification" id="liveNotif" role="dialog" aria-live="polite">
+  <button class="live-notif-close" onclick="closeLiveNotif()" aria-label="Kapat">✕</button>
+  <div class="live-notif-logo-wrap">
+    <img src="https://www.uzmanlardoorkepenk.com/images/uzmanlardoor-logo.webp" alt="Uzmanlar Door" class="live-notif-logo">
+    <span class="live-notif-status-dot"></span>
+  </div>
+  <div class="live-notif-content">
+    <div class="live-notif-badge">
+      <span class="inline-lang lang-active" data-inline-lang="tr">Şimdi Müsait</span>
+      <span class="inline-lang" data-inline-lang="en">Available Now</span>
+    </div>
+    <div class="live-notif-title">
+      <span class="inline-lang lang-active" data-inline-lang="tr">Kepenk servis ekibimiz şu an müsait</span>
+      <span class="inline-lang" data-inline-lang="en">Our shutter service team is available now</span>
+    </div>
+    <div class="live-notif-text">
+      <span class="inline-lang lang-active" data-inline-lang="tr">Detaylı bilgi için arayabilirsiniz.</span>
+      <span class="inline-lang" data-inline-lang="en">You can call for detailed information.</span>
+    </div>
+    <div class="live-notif-actions">
+      <a href="tel:+905536475549" class="live-notif-btn live-notif-btn-call" onclick="closeLiveNotif()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        <span class="inline-lang lang-active" data-inline-lang="tr">Hemen Ara</span>
+        <span class="inline-lang" data-inline-lang="en">Call Now</span>
+      </a>
+      <a href="https://wa.me/905536475549?text=Merhaba,%20kepenk%20servisi%20için%20bilgi%20almak%20istiyorum" class="live-notif-btn live-notif-btn-wa" onclick="closeLiveNotif()">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span class="inline-lang lang-active" data-inline-lang="tr">WhatsApp</span>
+        <span class="inline-lang" data-inline-lang="en">WhatsApp</span>
+      </a>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -2318,7 +2923,7 @@ function makeProductCard(p, lang) {
   const fullImg = IMG_BASE + p.img;
   const waMsg = encodeURIComponent(`Merhaba, "${pname}" ürünü hakkında bilgi almak istiyorum.`);
   return `
-    <div class="product-card reveal">
+    <div class="product-card reveal-scale">
       <div class="product-img-wrap" onclick="openLightbox('${fullImg.replace(/'/g,"\\'")}','${pname.replace(/'/g,"\\'")}')">
         <img src="${fullImg}" alt="${pname}" loading="lazy" onerror="this.src='${PLACEHOLDER}'">
         <span class="product-badge">${t.badge}</span>
@@ -2505,7 +3110,7 @@ function renderGallery() {
   const grid = document.getElementById('galleryGrid');
   if (!grid) return;
   grid.innerHTML = galleryImages.map((src, i) => `
-    <div class="gallery-thumb" onclick="openGalleryLightbox(${i})">
+    <div class="gallery-thumb reveal-scale" onclick="openGalleryLightbox(${i})">
       <img src="${src}" alt="Referans ${i+1}" loading="lazy" onerror="this.parentElement.style.opacity='0.4'">
       <div class="gallery-overlay"><span class="gallery-overlay-icon">⊕</span></div>
       <span class="gallery-num">${i+1}</span>
@@ -2568,29 +3173,36 @@ function setLang(lang) {
 }
 
 function initReveal() {
-  // Mobile tespit (700px altı VEYA touch device)
-  const isMobile = window.innerWidth < 768 || ('ontouchstart' in window);
+  const selectors = '.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-blur, .reveal-up';
 
-  if (isMobile) {
-    /* Mobilde reveal animasyonlarını TAMAMEN kapat - render bug fix
-       Tüm .reveal class'larını direkt visible yap, animasyon yok */
-    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
-      el.classList.add('visible');
-    });
+  // IntersectionObserver desteklenmiyorsa tüm elementleri direkt görünür yap (eski tarayıcılar)
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll(selectors).forEach(el => el.classList.add('visible'));
     return;
   }
 
-  /* Desktop'ta normal reveal animasyonu çalışsın */
-  document.body.classList.add('reveal-init');
-  const observer = new IntersectionObserver((entries) => {
+  // Stagger gruplarındaki çocuklara index ata (CSS'in --stagger-i değişkeni için)
+  document.querySelectorAll('.stagger').forEach(group => {
+    Array.from(group.children).forEach((child, i) => {
+      child.style.setProperty('--stagger-i', i);
+    });
+  });
+
+  // Mobilde tetikleme threshold'u daha düşük (kullanıcı daha az kaydırsa bile gözüksün)
+  const isMobile = window.innerWidth < 768;
+  const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.classList.add('visible');
-        observer.unobserve(e.target);
+        obs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+  }, {
+    threshold: isMobile ? 0.05 : 0.12,
+    rootMargin: isMobile ? '0px 0px -8% 0px' : '0px 0px -10% 0px'
+  });
+
+  document.querySelectorAll(selectors).forEach(el => obs.observe(el));
 }
 
 function animateCounter(el, target, duration, suffix) {
@@ -2635,7 +3247,75 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProducts();
   renderGallery();
   initReveal();
+  initLiveNotification();
 });
+
+/* === ÜRÜN KATEGORİLERİ MODAL === */
+function openCatModal() {
+  const m = document.getElementById('catModal');
+  if (!m) return;
+  m.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCatModal(e) {
+  // Sadece arka plana tıklanırsa kapat (event verilmişse). Kart içinden gelen tıklamalar zaten event.stopPropagation ile engellenmiş
+  // onclick="closeCatModal()" çağrılarında e undefined olur, kartın içinden tıklandı demektir, kapatılır
+  if (e && e.target.classList && !e.target.classList.contains('cat-modal')) return;
+  const m = document.getElementById('catModal');
+  if (!m) return;
+  m.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ESC ile cat modal kapat */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const m = document.getElementById('catModal');
+    if (m && m.classList.contains('open')) closeCatModal();
+  }
+});
+
+/* === LIVE NOTIFICATION === */
+let liveNotifShown = false;
+
+function initLiveNotification() {
+  // Bu oturumda kapatılmış mı?
+  try {
+    if (sessionStorage.getItem('liveNotifClosed') === '1') return;
+  } catch (e) {}
+
+  const notif = document.getElementById('liveNotif');
+  if (!notif) return;
+
+  let triggered = false;
+  const onScroll = () => {
+    if (triggered) return;
+    const scrolled = window.scrollY + window.innerHeight;
+    const total = document.documentElement.scrollHeight;
+    const ratio = scrolled / total;
+    // Sayfa yüksekliğinin ~%45'ine geldiğinde göster
+    if (ratio >= 0.45) {
+      triggered = true;
+      window.removeEventListener('scroll', onScroll);
+      // 600ms sonra göster (yumuşak deneyim için)
+      setTimeout(() => {
+        notif.classList.add('show');
+        liveNotifShown = true;
+      }, 600);
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+function closeLiveNotif() {
+  const notif = document.getElementById('liveNotif');
+  if (!notif) return;
+  notif.classList.remove('show');
+  try {
+    sessionStorage.setItem('liveNotifClosed', '1');
+  } catch (e) {}
+}
 
 /* DRAWER MENU */
 function toggleDrawer() {
