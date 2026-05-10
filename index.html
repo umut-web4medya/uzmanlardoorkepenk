@@ -253,7 +253,7 @@ header {
   box-shadow: 0 2px 16px rgba(8,14,24,0.08);
 }
 /* Header + promo bar yüksekliği için body padding (nav gizli) */
-body { padding-top: 114px; }
+body { padding-top: 130px; }
 .header-inner {
   max-width: 1320px;
   margin: 0 auto;
@@ -261,7 +261,7 @@ body { padding-top: 114px; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 76px;
+  height: 92px;
   gap: 20px;
 }
 .logo-wrap {
@@ -272,7 +272,7 @@ body { padding-top: 114px; }
   cursor: pointer;
 }
 .logo-img {
-  height: 72px;
+  height: 86px;
   width: auto;
   display: block;
 }
@@ -282,7 +282,7 @@ body { padding-top: 114px; }
   line-height: 1.15;
 }
 .logo-main { font-family: var(--heading); font-size: 26px; font-weight: 800; color: var(--navy); letter-spacing: 1.5px; text-transform: uppercase; }
-.logo-accent { color: var(--sky); }
+.logo-accent { color: var(--red); }
 .logo-sub { font-size: 10px; color: #6B7685; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; }
 
 .header-contacts { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
@@ -537,7 +537,7 @@ nav::-webkit-scrollbar { display: none; }
 .hero-tag { background: var(--red); color: #fff; font-family: var(--heading); font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; padding: 4px 12px; border-radius: 3px; }
 .hero-tag-line { width: 36px; height: 2px; background: var(--sky); border-radius: 2px; }
 .hero-title { font-family: var(--heading); font-size: clamp(38px, 5vw, 68px); font-weight: 900; color: var(--white); line-height: 1.05; text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 14px; white-space: nowrap; opacity: 1; }
-.hero-title .accent { color: var(--sky-2); }
+.hero-title .accent { color: var(--red); }
 .hero-slogan {
   display: inline-block;
   font-family: var(--heading);
@@ -1104,7 +1104,7 @@ nav::-webkit-scrollbar { display: none; }
   letter-spacing: 1.5px;
   text-transform: uppercase;
 }
-.drawer-title span { color: var(--sky-2); }
+.drawer-title span { color: var(--red); }
 .drawer-close {
   width: 36px;
   height: 36px;
@@ -1692,7 +1692,7 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
     align-items: center;
   }
   .logo-wrap { flex-shrink: 1; min-width: 0; flex: 1; gap: 9px; align-items: center; }
-  .logo-img { height: 78px; flex-shrink: 0; margin: -14px -4px -14px 0; position: relative; z-index: 2; }
+  .logo-img { height: 94px; flex-shrink: 0; margin: -14px -4px -14px 0; position: relative; z-index: 2; }
   .logo-text-wrap { display: flex !important; flex-direction: column; min-width: 0; line-height: 1.15; flex: 1; }
   .logo-main { font-size: 22.5px !important; font-weight: 800; letter-spacing: 0.6px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.15 !important; margin-bottom: 3px !important; color: var(--navy) !important; display: block !important; }
   .logo-sub { font-size: 11.5px !important; letter-spacing: 0.1px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1 !important; display: block !important; color: #6B7685 !important; font-weight: 600; }
@@ -1737,7 +1737,7 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
   .logo-main { font-size: 21px; letter-spacing: 0.6px; }
   .logo-sub { display: none; }
   .logo-text-wrap { display: flex; }
-  .logo-img { height: 69px; margin: -12px -4px -12px 0; }
+  .logo-img { height: 83px; margin: -12px -4px -12px 0; }
   .lang-btn .flag-circle { width: 22px; height: 22px; }
   .hamburger-btn { width: 36px; height: 36px; }
   .gallery-grid { grid-template-columns: 1fr 1fr; }
@@ -1852,7 +1852,7 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
     </a>
     <a href="#kumandalar" class="drawer-link" onclick="toggleDrawer()">
       <span class="drawer-link-icon">📡</span>
-      <span data-nav-tr="Kumandalar" data-nav-en="Remote Controls">ALICI KUMANDA MODÜLLERİ</span>
+      <span data-nav-tr="Alıcı Kumanda Modülü" data-nav-en="Receiver Control Modules">Alıcı Kumanda Modülü</span>
     </a>
     <a href="#guc-kaynaklari" class="drawer-link" onclick="toggleDrawer()">
       <span class="drawer-link-icon">🔋</span>
@@ -1927,7 +1927,7 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
     <a href="#seffaf-otomatik-kepenk" class="nav-link" data-nav-tr="Şeffaf Kepenk" data-nav-en="Transparent Shutter">Şeffaf Kepenk</a>
     <a href="#otomatik-panjur" class="nav-link" data-nav-tr="Otomatik Panjur" data-nav-en="Automatic Blinds">Otomatik Panjur</a>
     <a href="#kepenk-motorlari" class="nav-link" data-nav-tr="Kepenk Motorları" data-nav-en="Shutter Motors">Kepenk Motorları</a>
-    <a href="#kumandalar" class="nav-link" data-nav-tr="Kumandalar" data-nav-en="Remote Controls">Kumandalar</a>
+    <a href="#kumandalar" class="nav-link" data-nav-tr="Alıcı Kumanda Modülü" data-nav-en="Receiver Control Modules">Alıcı Kumanda Modülü</a>
     <a href="#guc-kaynaklari" class="nav-link" data-nav-tr="Güç Kaynakları" data-nav-en="Power Supplies">Güç Kaynakları</a>
     <a href="#kepenk-lameller" class="nav-link" data-nav-tr="Kepenk Lameller" data-nav-en="Shutter Slats">Kepenk Lameller</a>
     <a href="#sineklik-modelleri" class="nav-link" data-nav-tr="Sineklik" data-nav-en="Mosquito Nets">Sineklik</a>
@@ -2668,7 +2668,7 @@ const categories = [
   },
   {
     id:'kumandalar',
-    names:{tr:'Kumandalar',en:'Remote Controls'},
+    names:{tr:'Alıcı Kumanda Modülü',en:'Receiver Control Modules'},
     products:[
       {name:{tr:'Alıcı Kumanda Modülü 1',en:'Receiver Control Module 1'},img:'anahtar1.webp',
        desc:{tr:'Kepenk motoruna entegre edilen, uzaktan kumanda sinyallerini alıp komuta dönüştüren elektronik alıcı modül.',
