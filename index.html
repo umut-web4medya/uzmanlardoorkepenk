@@ -1438,18 +1438,23 @@ nav::-webkit-scrollbar { display: none; }
   box-shadow: 0 6px 24px rgba(30, 144, 212, 0.55), 0 0 0 0 rgba(30, 144, 212, 0.4);
 }
 
-/* Hover - daha güçlü glow + büyüme */
-.sticky-btn:hover {
-  transform: scale(1.18) translateY(-2px) !important;
-  animation-play-state: paused;
-}
-.sticky-wa:hover {
-  box-shadow: 0 10px 32px rgba(37, 211, 102, 0.7), 0 0 24px rgba(37, 211, 102, 0.5);
-  background: #1EBE5B;
-}
-.sticky-call:hover {
-  box-shadow: 0 10px 32px rgba(30, 144, 212, 0.7), 0 0 24px rgba(30, 144, 212, 0.5);
-  background: var(--sky-2);
+/* Hover - daha güçlü glow + büyüme - SADECE fare destekli cihazlarda
+   Mobilde :hover state takılı kalmasın, sticky butonda renk hatası oluşmasın */
+@media (hover: hover) and (pointer: fine) {
+  .sticky-btn:hover {
+    transform: scale(1.18) translateY(-2px) !important;
+    animation-play-state: paused;
+  }
+  .sticky-wa:hover {
+    box-shadow: 0 10px 32px rgba(37, 211, 102, 0.7), 0 0 24px rgba(37, 211, 102, 0.5);
+    background: #1EBE5B;
+  }
+  .sticky-call:hover {
+    box-shadow: 0 10px 32px rgba(30, 144, 212, 0.7), 0 0 24px rgba(30, 144, 212, 0.5);
+    background: var(--sky-2);
+  }
+  .sticky-top:hover { background: var(--sky); transform: scale(1.1) !important; }
+  .sticky-btn:hover .sticky-tooltip { opacity: 1; transform: translateY(-50%) translateX(-4px); }
 }
 
 /* Top butonun pulse'ı kapalı (her zaman olmaması daha şık) */
@@ -1464,7 +1469,6 @@ nav::-webkit-scrollbar { display: none; }
 }
 .sticky-top::before, .sticky-top::after { display: none; }
 .sticky-top.visible { opacity: 1; pointer-events: auto; transform: scale(1) translateY(0); }
-.sticky-top:hover { background: var(--sky); transform: scale(1.1) !important; }
 
 .sticky-tooltip {
   position: absolute;
@@ -1497,7 +1501,6 @@ nav::-webkit-scrollbar { display: none; }
   height: 8px;
   background: rgba(0,0,0,0.85);
 }
-.sticky-btn:hover .sticky-tooltip { opacity: 1; transform: translateY(-50%) translateX(-4px); }
 
 /* FOOTER */
 footer { background: #050B13; padding: 36px 28px; text-align: center; color: rgba(255,255,255,0.45); font-size: 13px; border-top: 1px solid rgba(255,255,255,0.06); line-height: 1.7; }
@@ -2045,73 +2048,93 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
         </span>
       </div>
       <div class="reveal-right">
-        <p style="font-size:16px;color:#4A5568;line-height:1.85;margin-bottom:20px;">
-          <span class="inline-lang lang-active" data-inline-lang="tr">Otomatik kepenk sisteminin tüm ana parçalarını gösteren teknik anatomik görsel. Görsel üzerinde <strong>motor, kutu/kasa, mil borusu, yan ray, kepenk lamelleri, alt fitil, fotosel ve kumanda sistemi</strong> gibi bileşenler detaylı şekilde işaretlenmiştir.</span>
-          <span class="inline-lang" data-inline-lang="en">Technical anatomical visual showing all main parts of the automatic shutter system. Components such as <strong>motor, box/case, axle pipe, side rail, shutter slats, bottom seal, photocell and remote control system</strong> are marked in detail on the image.</span>
+        <div style="font-family:var(--heading);font-size:18px;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:1px;line-height:1.2;margin-bottom:4px;">
+          <span class="inline-lang lang-active" data-inline-lang="tr">Uzmanlar Door</span>
+          <span class="inline-lang" data-inline-lang="en">Uzmanlar Door</span>
+        </div>
+        <div style="font-family:var(--heading);font-size:13px;font-weight:600;color:var(--sky);text-transform:uppercase;letter-spacing:2px;margin-bottom:18px;">
+          <span class="inline-lang lang-active" data-inline-lang="tr">Otomatik Kepenk ve Panjur Sistemleri</span>
+          <span class="inline-lang" data-inline-lang="en">Automatic Shutter and Blind Systems</span>
+        </div>
+        <p style="font-size:15px;color:#4A5568;line-height:1.85;margin-bottom:16px;">
+          <span class="inline-lang lang-active" data-inline-lang="tr">Otomatik kepenk sistemleri; güvenlik, dayanıklılık ve uzun ömürlü kullanım sağlamak amacıyla birbirine uyumlu çalışan profesyonel ekipmanlardan oluşur.</span>
+          <span class="inline-lang" data-inline-lang="en">Automatic shutter systems consist of professional equipment working in harmony to provide security, durability and long-term use.</span>
         </p>
-        <p style="font-size:15px;color:#4A5568;line-height:1.8;margin-bottom:24px;">
-          <span class="inline-lang lang-active" data-inline-lang="tr">Modern otomatik kepenk sistemlerinin çalışma mantığını ve yapı bileşenlerini kullanıcıya sade ve anlaşılır şekilde anlatan profesyonel teknik infografik tasarımı.</span>
-          <span class="inline-lang" data-inline-lang="en">Professional technical infographic design that explains the working logic and structural components of modern automatic shutter systems to the user in a simple and understandable way.</span>
+        <p style="font-size:15px;color:#4A5568;line-height:1.85;margin-bottom:24px;">
+          <span class="inline-lang lang-active" data-inline-lang="tr">Sistemde kullanılan <strong>102'lik galvanizli boru, tube motor, plakalı rulman, yan kapak, dikme ray sistemi ve galvanizli çelik profiller</strong>; kepengin dengeli, sessiz ve güvenli çalışmasını sağlar.</span>
+          <span class="inline-lang" data-inline-lang="en">The <strong>102mm galvanized pipe, tube motor, plate bearing, side cover, post rail system and galvanized steel profiles</strong> used in the system ensure that the shutter operates in a balanced, quiet and safe manner.</span>
         </p>
 
-        <!-- Bileşen etiketleri -->
+        <!-- Teknik Özellik Listesi -->
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 20px;">
-          <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid var(--red);border-radius:8px;">
-            <span style="font-size:18px;">⚙️</span>
-            <span style="font-family:var(--heading);font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">
-              <span class="inline-lang lang-active" data-inline-lang="tr">Motor</span>
-              <span class="inline-lang" data-inline-lang="en">Motor</span>
+          <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid var(--sky);border-radius:8px;">
+            <span style="color:#27AE60;font-size:16px;font-weight:900;flex-shrink:0;">✓</span>
+            <span style="font-family:var(--heading);font-size:12.5px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.3px;line-height:1.3;">
+              <span class="inline-lang lang-active" data-inline-lang="tr">102'lik Galvanizli Boru Sistemi</span>
+              <span class="inline-lang" data-inline-lang="en">102mm Galvanized Pipe System</span>
             </span>
           </div>
-          <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid var(--sky);border-radius:8px;">
-            <span style="font-size:18px;">📦</span>
-            <span style="font-family:var(--heading);font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">
-              <span class="inline-lang lang-active" data-inline-lang="tr">Kutu / Kasa</span>
-              <span class="inline-lang" data-inline-lang="en">Box / Case</span>
+          <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid var(--red);border-radius:8px;">
+            <span style="color:#27AE60;font-size:16px;font-weight:900;flex-shrink:0;">✓</span>
+            <span style="font-family:var(--heading);font-size:12.5px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.3px;line-height:1.3;">
+              <span class="inline-lang lang-active" data-inline-lang="tr">Güçlü Tube Motor Teknolojisi</span>
+              <span class="inline-lang" data-inline-lang="en">Powerful Tube Motor Technology</span>
             </span>
           </div>
           <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid #27AE60;border-radius:8px;">
-            <span style="font-size:18px;">🔩</span>
-            <span style="font-family:var(--heading);font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">
-              <span class="inline-lang lang-active" data-inline-lang="tr">Mil Borusu</span>
-              <span class="inline-lang" data-inline-lang="en">Axle Pipe</span>
+            <span style="color:#27AE60;font-size:16px;font-weight:900;flex-shrink:0;">✓</span>
+            <span style="font-family:var(--heading);font-size:12.5px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.3px;line-height:1.3;">
+              <span class="inline-lang lang-active" data-inline-lang="tr">Galvanizli Çelik Profil Lamel</span>
+              <span class="inline-lang" data-inline-lang="en">Galvanized Steel Profile Slat</span>
             </span>
           </div>
           <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid #F39C12;border-radius:8px;">
-            <span style="font-size:18px;">📏</span>
-            <span style="font-family:var(--heading);font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">
-              <span class="inline-lang lang-active" data-inline-lang="tr">Yan Ray</span>
-              <span class="inline-lang" data-inline-lang="en">Side Rail</span>
+            <span style="color:#27AE60;font-size:16px;font-weight:900;flex-shrink:0;">✓</span>
+            <span style="font-family:var(--heading);font-size:12.5px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.3px;line-height:1.3;">
+              <span class="inline-lang lang-active" data-inline-lang="tr">Sessiz ve Dengeli Rulman Sistemi</span>
+              <span class="inline-lang" data-inline-lang="en">Quiet and Balanced Bearing System</span>
             </span>
           </div>
           <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid #9B59B6;border-radius:8px;">
-            <span style="font-size:18px;">▦</span>
-            <span style="font-family:var(--heading);font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">
-              <span class="inline-lang lang-active" data-inline-lang="tr">Kepenk Lamelleri</span>
-              <span class="inline-lang" data-inline-lang="en">Shutter Slats</span>
+            <span style="color:#27AE60;font-size:16px;font-weight:900;flex-shrink:0;">✓</span>
+            <span style="font-family:var(--heading);font-size:12.5px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.3px;line-height:1.3;">
+              <span class="inline-lang lang-active" data-inline-lang="tr">Dayanıklı Yan Kapak ve Kutu Yapısı</span>
+              <span class="inline-lang" data-inline-lang="en">Durable Side Cover and Box Structure</span>
             </span>
           </div>
           <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid #16A085;border-radius:8px;">
-            <span style="font-size:18px;">⎯</span>
-            <span style="font-family:var(--heading);font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">
-              <span class="inline-lang lang-active" data-inline-lang="tr">Alt Fitil</span>
-              <span class="inline-lang" data-inline-lang="en">Bottom Seal</span>
+            <span style="color:#27AE60;font-size:16px;font-weight:900;flex-shrink:0;">✓</span>
+            <span style="font-family:var(--heading);font-size:12.5px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.3px;line-height:1.3;">
+              <span class="inline-lang lang-active" data-inline-lang="tr">Dikme Ray ve Kılavuz Sistemi</span>
+              <span class="inline-lang" data-inline-lang="en">Post Rail and Guide System</span>
             </span>
           </div>
           <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid #E74C3C;border-radius:8px;">
-            <span style="font-size:18px;">👁️</span>
-            <span style="font-family:var(--heading);font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">
-              <span class="inline-lang lang-active" data-inline-lang="tr">Fotosel</span>
-              <span class="inline-lang" data-inline-lang="en">Photocell</span>
+            <span style="color:#27AE60;font-size:16px;font-weight:900;flex-shrink:0;">✓</span>
+            <span style="font-family:var(--heading);font-size:12.5px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.3px;line-height:1.3;">
+              <span class="inline-lang lang-active" data-inline-lang="tr">Lastik Fitil ile Sessiz Çalışma</span>
+              <span class="inline-lang" data-inline-lang="en">Quiet Operation with Rubber Seal</span>
             </span>
           </div>
           <div style="display:flex;align-items:center;gap:10px;padding:11px 14px;background:#fff;border:1px solid var(--border-light);border-left:3px solid #3498DB;border-radius:8px;">
-            <span style="font-size:18px;">📡</span>
-            <span style="font-family:var(--heading);font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">
-              <span class="inline-lang lang-active" data-inline-lang="tr">Kumanda Sistemi</span>
-              <span class="inline-lang" data-inline-lang="en">Control System</span>
+            <span style="color:#27AE60;font-size:16px;font-weight:900;flex-shrink:0;">✓</span>
+            <span style="font-family:var(--heading);font-size:12.5px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.3px;line-height:1.3;">
+              <span class="inline-lang lang-active" data-inline-lang="tr">Uzun Ömürlü ve Güvenli Kullanım</span>
+              <span class="inline-lang" data-inline-lang="en">Long-Life and Safe Use</span>
             </span>
           </div>
+        </div>
+
+        <!-- Kapanış Notu -->
+        <div style="margin-top:22px;padding:18px 20px;background:linear-gradient(135deg, var(--sky-dim) 0%, rgba(212,34,44,0.06) 100%);border-radius:10px;border-left:3px solid var(--sky);">
+          <p style="font-size:14px;color:#3A4555;line-height:1.7;margin-bottom:8px;">
+            <span class="inline-lang lang-active" data-inline-lang="tr"><strong>Uzmanlar Door</strong> olarak kullanılan tüm ekipmanlarda kalite, dayanıklılık ve profesyonel işçilik ön planda tutulmaktadır.</span>
+            <span class="inline-lang" data-inline-lang="en">As <strong>Uzmanlar Door</strong>, quality, durability and professional workmanship are at the forefront in all equipment used.</span>
+          </p>
+          <p style="font-size:13.5px;color:#4A5568;line-height:1.7;margin:0;">
+            <span class="inline-lang lang-active" data-inline-lang="tr">Modern üretim teknolojisiyle hazırlanan otomatik kepenk ve panjur sistemlerimiz; <strong>mağaza, iş yeri, depo ve endüstriyel alanlarda</strong> maksimum güvenlik sağlar.</span>
+            <span class="inline-lang" data-inline-lang="en">Our automatic shutter and blind systems, prepared with modern production technology, provide maximum security in <strong>stores, workplaces, warehouses and industrial areas</strong>.</span>
+          </p>
         </div>
       </div>
     </div>
@@ -2504,7 +2527,7 @@ footer strong { color: rgba(255,255,255,0.85); font-family: var(--heading); lett
 
 <!-- STICKY CTA -->
 <div class="sticky-cta">
-  <button class="sticky-btn sticky-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <button class="sticky-btn sticky-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'}); this.blur();">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
     <span class="sticky-tooltip"><span class="inline-lang lang-active" data-inline-lang="tr">Yukarı</span><span class="inline-lang" data-inline-lang="en">Top</span></span>
   </button>
@@ -2647,19 +2670,19 @@ const categories = [
     id:'kumandalar',
     names:{tr:'Kumandalar',en:'Remote Controls'},
     products:[
-      {name:{tr:'Alıcı Kumanda Modülü 1',en:'Receiver Control Module 1'},img:'alici-kumanda1.webp',
+      {name:{tr:'Alıcı Kumanda Modülü 1',en:'Receiver Control Module 1'},img:'anahtar1.webp',
        desc:{tr:'Kepenk motoruna entegre edilen, uzaktan kumanda sinyallerini alıp komuta dönüştüren elektronik alıcı modül.',
              en:'Electronic receiver module integrated into the shutter motor, receiving remote control signals and converting them to commands.'}},
-      {name:{tr:'Alıcı Kumanda Modülü 2',en:'Receiver Control Module 2'},img:'alici-kumanda2.webp',
+      {name:{tr:'Alıcı Kumanda Modülü 2',en:'Receiver Control Module 2'},img:'anahtar2.webp',
        desc:{tr:'Mevcut kepenk sistemlerine kolayca entegre edilebilen, kablolu bağlantılı alıcı kumanda ünitesi.',
              en:'Receiver control unit with wired connection that can be easily integrated into existing shutter systems.'}},
       {name:{tr:'Standart Kepenk Güç Kaynağı',en:'Standard Shutter Power Supply'},img:'kepenk-guc-kaynagi1.webp',
        desc:{tr:'Otomatik kepenk alıcı kumanda modülleri için temel güç kaynağı modeli.',
              en:'Basic power supply model for automatic shutter receiver control modules.'}},
-      {name:{tr:'Tek Kanallı Uzaktan Kumanda',en:'Single Channel Remote Control'},img:'kumandalar1.webp',
+      {name:{tr:'Tek Kanallı Uzaktan Kumanda',en:'Single Channel Remote Control'},img:'kumanda1.webp',
        desc:{tr:'Tek kepenk kontrolü için kompakt ve kullanışlı uzaktan kumanda.',
              en:'Compact and useful remote control for single shutter control.'}},
-      {name:{tr:'Çok Kanallı Uzaktan Kumanda',en:'Multi-Channel Remote Control'},img:'kumandalar2.webp',
+      {name:{tr:'Çok Kanallı Uzaktan Kumanda',en:'Multi-Channel Remote Control'},img:'kumanda2.webp',
        desc:{tr:'Birden fazla kepengi tek kumandadan kontrol edebileceğiniz çoklu kanal modeli.',
              en:'Multi-channel model that allows you to control multiple shutters from a single remote.'}},
       {name:{tr:'Duvar Tipi Kumanda',en:'Wall Type Switch'},img:'kumandalar3.webp',
